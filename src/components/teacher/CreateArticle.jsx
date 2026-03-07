@@ -164,7 +164,7 @@ const CreateArticle = () => {
  const addTag = () => {
   if (tagInput.trim() && !article.tags.includes(tagInput.trim())) {
     const newTags = [...article.tags, tagInput.trim()];
-    console.log('🏷️ After adding tag - newTags:', newTags); // Add this
+    
     setArticle({
       ...article,
       tags: newTags
@@ -242,7 +242,6 @@ const CreateArticle = () => {
     }
   };
 
-  // Render file upload area with better UI - ENTIRELY CLICKABLE
   const renderFileUploadArea = (block, index) => {
     const getIcon = () => {
       switch(block.type) {
@@ -344,32 +343,32 @@ const CreateArticle = () => {
             hover:scale-[1.02] hover:shadow-xl
           `}
         >
-          {/* Decorative elements */}
+          
           <div className="absolute inset-0 bg-grid-pattern opacity-0 group-hover:opacity-10 transition-opacity rounded-xl"></div>
           
           <div className="flex flex-col items-center text-center relative z-10">
-            {/* Icon with animated background */}
+            
             <div className="mb-6 p-5 bg-gray-800/50 rounded-2xl group-hover:scale-110 transition-transform duration-300 group-hover:rotate-3">
               {getIcon()}
             </div>
             
-            {/* Main title */}
+            
             <h3 className="text-2xl font-semibold text-white mb-3 group-hover:text-indigo-300 transition-colors">
               {getTitle()}
             </h3>
             
-            {/* Subtitle with file info */}
+            
             <p className="text-gray-400 mb-4 max-w-md group-hover:text-gray-300 transition-colors">
               {getSubtitle()}
             </p>
             
-            {/* Click indicator */}
+            
             <div className="flex items-center gap-2 text-indigo-400 bg-indigo-500/10 px-4 py-2 rounded-full">
               <FiUpload className="group-hover:animate-bounce" />
               <span className="text-sm font-medium">Browse files or drag and drop</span>
             </div>
             
-            {/* URL option */}
+            
             <button
               type="button"
               onClick={(e) => {
@@ -383,7 +382,7 @@ const CreateArticle = () => {
             </button>
           </div>
 
-          {/* Ripple effect on hover */}
+          
           <div className="absolute inset-0 overflow-hidden rounded-xl">
             <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
               <div className="absolute -top-1/2 -left-1/2 w-full h-full bg-gradient-to-r from-transparent via-white/5 to-transparent transform rotate-45 group-hover:animate-shimmer"></div>
@@ -394,7 +393,7 @@ const CreateArticle = () => {
     );
   };
 
-  // Render preview for uploaded media
+  
   const renderMediaPreview = (block, index) => {
     const previewUrl = block.metadata?.previewUrl || block.content;
 
@@ -481,7 +480,7 @@ const CreateArticle = () => {
 
   return (
     <div className="min-h-screen bg-gray-900 py-8 pt-24 relative overflow-hidden">
-      {/* Background stars effect */}
+      
       <div className="absolute inset-0 overflow-hidden">
         {[...Array(20)].map((_, i) => (
           <div
@@ -536,7 +535,7 @@ const CreateArticle = () => {
                 />
               </div>
 
-              {/* Description */}
+              
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">
                   Short Description
@@ -550,7 +549,7 @@ const CreateArticle = () => {
                 />
               </div>
 
-              {/* Category */}
+              
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">
                   Category <span className="text-red-400">*</span>
@@ -568,7 +567,7 @@ const CreateArticle = () => {
                 </select>
               </div>
 
-              {/* Cover Image */}
+              
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">
                   Cover Image URL (optional)
@@ -601,7 +600,7 @@ const CreateArticle = () => {
                 )}
               </div>
 
-              {/* Tags */}
+              
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">
                   Tags
@@ -644,7 +643,7 @@ const CreateArticle = () => {
             </div>
           </div>
 
-          {/* Content Blocks */}
+          
           <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-700">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-xl font-semibold text-white">Content Blocks</h2>
@@ -680,7 +679,7 @@ const CreateArticle = () => {
               </div>
             </div>
 
-            {/* Content Blocks List */}
+            
             {article.contentBlocks.length === 0 ? (
               <div className="text-center py-16 bg-gray-800/30 rounded-lg border-2 border-dashed border-gray-700">
                 <div className="w-20 h-20 bg-gray-700/50 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -699,7 +698,7 @@ const CreateArticle = () => {
               <div className="space-y-4">
                 {article.contentBlocks.map((block, index) => (
                   <div key={index} className="border border-gray-700 rounded-lg p-4 bg-gray-800/30 hover:border-gray-600 transition-colors">
-                    {/* Block Header */}
+                    
                     <div className="flex items-center justify-between mb-4 pb-2 border-b border-gray-700">
                       <div className="flex items-center gap-3">
                         <span className={`
@@ -753,7 +752,7 @@ const CreateArticle = () => {
                       </div>
                     </div>
 
-                    {/* Block Content */}
+                    
                     {block.type === 'text' && (
                       <div className="bg-gray-900/50 rounded-lg p-4">
                         <RichTextEditor
@@ -779,7 +778,7 @@ const CreateArticle = () => {
             )}
           </div>
 
-          {/* Form Actions */}
+          
           <div className="flex items-center justify-end gap-4 sticky bottom-4 bg-gray-800/80 backdrop-blur-sm p-4 rounded-lg border border-gray-700">
             <button
               type="button"

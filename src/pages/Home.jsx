@@ -6,11 +6,11 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-gray-900">
       
-      {/* Hero Section with Dark Animated Background */}
+      
       <section className="relative bg-gradient-to-br from-gray-900 via-indigo-950 to-purple-950 text-white overflow-hidden min-h-screen flex items-center">
-        {/* Animated stars/meteors background */}
+        
         <div className="absolute inset-0 overflow-hidden">
-          {/* Static stars */}
+          
           {[...Array(50)].map((_, i) => (
             <div
               key={i}
@@ -26,7 +26,7 @@ const Home = () => {
             />
           ))}
           
-          {/* Moving shooting stars */}
+          
           {[...Array(5)].map((_, i) => (
             <div
               key={`shooting-${i}`}
@@ -43,12 +43,12 @@ const Home = () => {
             </div>
           ))}
 
-          {/* Floating nebula clouds */}
+          
           <div className="absolute top-20 left-10 w-96 h-96 bg-indigo-600/20 rounded-full filter blur-3xl animate-pulse"></div>
           <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-600/20 rounded-full filter blur-3xl animate-pulse delay-1000"></div>
           <div className="absolute top-40 right-40 w-80 h-80 bg-blue-600/20 rounded-full filter blur-3xl animate-pulse delay-500"></div>
           
-          {/* Constellation lines */}
+          
           <svg className="absolute inset-0 w-full h-full opacity-20" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <pattern id="smallGrid" width="100" height="100" patternUnits="userSpaceOnUse">
@@ -65,13 +65,13 @@ const Home = () => {
           </svg>
         </div>
 
-        {/* Glowing orbs */}
+        
         <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-indigo-500/10 rounded-full filter blur-3xl animate-pulse-slow"></div>
         <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-purple-500/10 rounded-full filter blur-3xl animate-pulse-slow delay-700"></div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 z-10">
           <div className="text-center">
-            {/* Badge with glow effect */}
+            
             <div className="inline-flex items-center bg-white/10 backdrop-blur-md rounded-full px-4 py-2 mb-8 animate-fade-in-down border border-white/20 shadow-lg shadow-indigo-500/20">
               <FiStar className="w-4 h-4 mr-2 text-yellow-300" />
               <span className="text-sm font-medium bg-gradient-to-r from-blue-200 to-purple-200 bg-clip-text text-transparent">
@@ -79,7 +79,7 @@ const Home = () => {
               </span>
             </div>
 
-            {/* Main heading with glowing effect */}
+            
             <h1 className="text-5xl md:text-7xl font-bold mb-8 leading-tight">
               Welcome to{' '}
               <span className="relative">
@@ -90,13 +90,13 @@ const Home = () => {
               </span>
             </h1>
 
-            {/* Animated description with glow */}
+            
             <p className="text-xl md:text-2xl mb-12 max-w-3xl mx-auto text-gray-300 leading-relaxed animate-fade-in-up">
               An interactive learning platform for teachers and students to create, 
               share, and track educational content in an engaging environment
             </p>
 
-            {/* CTA Buttons with enhanced styling */}
+            
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center animate-fade-in">
               <Link
                 to="/register"
@@ -120,7 +120,7 @@ const Home = () => {
               </Link>
             </div>
 
-            {/* Stats with glass morphism */}
+            
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-20 pt-10 border-t border-white/10">
               {[
                 ['Active Users', '50,000+'],
@@ -139,13 +139,13 @@ const Home = () => {
           </div>
         </div>
 
-        {/* Bottom fade */}
+        
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-gray-900 to-transparent"></div>
       </section>
 
-      {/* Features Section with Dark Theme */}
+      
       <section className="py-28 bg-gray-900 relative overflow-hidden">
-        {/* Background elements */}
+        
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-500 via-transparent to-transparent"></div>
           <div className="absolute bottom-0 right-0 w-full h-full bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-purple-500 via-transparent to-transparent"></div>
@@ -202,10 +202,10 @@ const Home = () => {
                 className="group bg-gray-800/50 backdrop-blur-sm rounded-2xl p-8 shadow-xl hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 relative overflow-hidden border border-gray-700 hover:border-opacity-100"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
-                {/* Gradient overlay on hover */}
+                
                 <div className={`absolute inset-0 bg-gradient-to-br ${item.bgColor} opacity-0 group-hover:opacity-100 transition-opacity duration-300`}></div>
                 
-                {/* Icon with gradient background */}
+                
                 <div className={`relative w-16 h-16 bg-gray-700/50 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 border ${item.borderColor}`}>
                   <item.icon className={`${item.textColor} text-3xl`} />
                 </div>
@@ -221,7 +221,7 @@ const Home = () => {
                   ))}
                 </ul>
 
-                {/* Learn more link */}
+                
                 <div className="mt-6 relative">
                   <Link to="/features" className={`inline-flex items-center ${item.textColor} font-medium group-hover:underline`}>
                     Learn more
@@ -234,9 +234,9 @@ const Home = () => {
         </div>
       </section>
 
-      {/* How It Works with Dark Theme */}
+      
       <section className="py-28 bg-gray-800 relative overflow-hidden">
-        {/* Background pattern */}
+        
         <div className="absolute inset-0 opacity-5">
           <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.1) 1px, transparent 0)', backgroundSize: '40px 40px' }}></div>
         </div>
@@ -253,7 +253,7 @@ const Home = () => {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
-            {/* Connecting line for desktop */}
+            
             <div className="hidden md:block absolute top-24 left-[15%] right-[15%] h-0.5 bg-gradient-to-r from-indigo-500/30 via-purple-500/30 to-pink-500/30"></div>
             
             {[
@@ -290,12 +290,12 @@ const Home = () => {
             ].map((step, index) => (
               <div key={step.number} className="relative group" style={{ animationDelay: `${index * 200}ms` }}>
                 <div className={`bg-gray-900/50 backdrop-blur-sm rounded-2xl p-8 shadow-xl hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 border border-gray-700 hover:border-${step.borderColor}`}>
-                  {/* Floating number */}
+                  
                   <div className={`absolute -top-4 -right-4 w-12 h-12 bg-gradient-to-r ${step.gradient} text-white rounded-full flex items-center justify-center font-bold text-lg shadow-lg group-hover:scale-110 transition-transform`}>
                     {step.number}
                   </div>
                   
-                  {/* Icon circle */}
+                  
                   <div className={`w-20 h-20 ${step.bgLight} rounded-2xl flex items-center justify-center text-4xl mb-6 group-hover:rotate-3 transition-transform border ${step.borderColor}`}>
                     {step.icon}
                   </div>
@@ -303,7 +303,7 @@ const Home = () => {
                   <h3 className="text-2xl font-bold mb-3 text-white">{step.title}</h3>
                   <p className="text-gray-400 text-lg">{step.description}</p>
                   
-                  {/* Progress indicator */}
+                 
                   {index < 2 && (
                     <div className="hidden md:block absolute -right-6 top-1/2 transform -translate-y-1/2 z-10">
                       <FiArrowRight className={`${step.textColor} text-2xl`} />
@@ -314,7 +314,7 @@ const Home = () => {
             ))}
           </div>
 
-          {/* Video preview with dark theme */}
+          
           <div className="mt-20 bg-gradient-to-r from-indigo-500/20 to-purple-500/20 rounded-3xl p-1 shadow-2xl">
             <div className="bg-gray-900 rounded-2xl p-8 md:p-12 border border-gray-700">
               <div className="flex flex-col md:flex-row items-center gap-8">
@@ -341,16 +341,16 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Enhanced CTA Section with Dark Theme */}
+      
       <section className="relative bg-gradient-to-br from-gray-900 via-indigo-950 to-purple-950 py-28 overflow-hidden">
-        {/* Animated background */}
+        
         <div className="absolute inset-0">
           <div className="absolute top-0 left-0 w-96 h-96 bg-indigo-500/10 rounded-full filter blur-3xl animate-pulse"></div>
           <div className="absolute bottom-0 right-0 w-96 h-96 bg-purple-500/10 rounded-full filter blur-3xl animate-pulse delay-1000"></div>
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-pink-500/10 rounded-full filter blur-3xl animate-pulse delay-500"></div>
         </div>
 
-        {/* Stars in CTA */}
+       
         <div className="absolute inset-0 overflow-hidden opacity-30">
           {[...Array(20)].map((_, i) => (
             <div
@@ -369,9 +369,9 @@ const Home = () => {
         </div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          {/* Badge */}
+          
           <span className="inline-block bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 text-white mb-8 border border-white/20">
-            🚀 Limited Time Offer
+             Limited Time Offer
           </span>
 
           <h2 className="text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
@@ -405,7 +405,7 @@ const Home = () => {
             </Link>
           </div>
 
-          {/* Trust badges */}
+          
           <div className="mt-16 flex flex-wrap justify-center items-center gap-8 opacity-50">
             <span className="text-gray-400 text-sm">Trusted by:</span>
             {['Google', 'Microsoft', 'Amazon', 'Meta'].map((company) => (
@@ -416,7 +416,7 @@ const Home = () => {
           </div>
         </div>
 
-        {/* Bottom fade */}
+        
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-gray-900 to-transparent"></div>
       </section>
     </div>

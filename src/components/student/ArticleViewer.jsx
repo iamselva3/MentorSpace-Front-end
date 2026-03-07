@@ -16,6 +16,7 @@ const StudentArticleView = () => {
   const [article, setArticle] = useState(null);
   const [loading, setLoading] = useState(true);
   const [timeSpent, setTimeSpent] = useState(0);
+
   
   const [showHighlightModal, setShowHighlightModal] = useState(false);
   const [selectedText, setSelectedText] = useState('');
@@ -179,7 +180,7 @@ const StudentArticleView = () => {
 
   return (
     <div className="min-h-screen bg-gray-900 py-8 pt-24 relative overflow-hidden">
-      {/* Background stars effect */}
+      
       <div className="absolute inset-0 overflow-hidden">
         {[...Array(20)].map((_, i) => (
           <div
@@ -200,7 +201,7 @@ const StudentArticleView = () => {
       </div>
 
       <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
-        {/* Timer Bar */}
+       
         <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl shadow-lg p-4 mb-6 flex flex-col sm:flex-row items-center justify-between gap-4 border border-gray-700">
           <div className="flex items-center gap-4">
             <span className="flex items-center gap-2 text-gray-300">
@@ -221,13 +222,13 @@ const StudentArticleView = () => {
           </span>
         </div>
 
-        {/* Article Header */}
+      
         <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden mb-6 border border-gray-700">
           {article?.coverImage && (
             <div className="h-64 overflow-hidden border-b border-gray-700">
               <img
-                src={article.coverImage}
-                alt={article.title}
+                src={article?.coverImage || "https://images.unsplash.com/photo-1506748785078-4d0969d696e7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"}
+                alt={article?.title}
                 className="w-full h-full object-cover"
               />
             </div>

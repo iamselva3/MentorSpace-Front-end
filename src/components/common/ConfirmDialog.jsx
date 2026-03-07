@@ -9,9 +9,9 @@ const ConfirmDialog = ({
   onCancel,
   confirmText = 'Confirm',
   cancelText = 'Cancel',
-  type = 'warning', // 'warning', 'danger', 'info', 'success'
-  size = 'md', // 'sm', 'md', 'lg'
-  children // Add children prop here
+  type = 'warning', 
+  size = 'md', 
+  children 
 }) => {
   if (!isOpen) return null;
 
@@ -106,7 +106,7 @@ const ConfirmDialog = ({
           border ${config.borderColor}
         `}
       >
-        {/* Header */}
+        
         <div className="flex items-center justify-between p-5 border-b border-gray-100">
           <div className="flex items-center gap-3">
             <div className={`p-2 rounded-full ${config.bgColor}`}>
@@ -125,13 +125,11 @@ const ConfirmDialog = ({
           </button>
         </div>
 
-        {/* Content */}
         <div className="p-6">
           <p id="dialog-description" className="text-gray-600 leading-relaxed">
             {message}
           </p>
 
-          {/* Additional custom content area - FIXED: use children directly */}
           {children && (
             <div className="mt-4">
               {children}
@@ -139,7 +137,6 @@ const ConfirmDialog = ({
           )}
         </div>
 
-        {/* Footer with Actions */}
         <div className="flex items-center justify-end gap-3 p-5 border-t border-gray-100 bg-gray-50 rounded-b-xl">
           <button
             onClick={onCancel}
@@ -165,7 +162,6 @@ const ConfirmDialog = ({
   );
 };
 
-// Pre-configured dialog variants
 export const DeleteConfirmDialog = ({ isOpen, onConfirm, onCancel, itemName = 'item' }) => (
   <ConfirmDialog
     isOpen={isOpen}

@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { toast } from 'react-hot-toast';
-import { FiMail, FiLock, FiUser, FiBook } from 'react-icons/fi';
+import { FiMail, FiLock, FiUser, FiBook, FiAlertCircle } from 'react-icons/fi';
 
 const Login = () => {
   const navigate = useNavigate();
   const { login } = useAuth();
   const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -19,12 +20,14 @@ const Login = () => {
       ...formData,
       [e.target.name]: e.target.value
     });
+    if (errorMessage) setErrorMessage('');
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault(); 
     
     setLoading(true);
+    setErrorMessage('');
     
     try {
       console.log('Attempting login with:', formData.email);
@@ -41,7 +44,9 @@ const Login = () => {
       
     } catch (error) {
       console.error('Login error:', error);
-      toast.error(error.response?.data?.message || 'Login failed');
+      const message = error.response?.data?.message || 'Login failed. Please check your credentials.';
+      setErrorMessage(message);
+      toast.error(message);
     } finally {
       setLoading(false);
     }
@@ -49,9 +54,9 @@ const Login = () => {
 
   return (
     <div className="min-h-screen bg-gray-900 flex items-center justify-center p-4 pt-24 relative overflow-hidden">
-      {/* Dark background with stars effect - matching Home page */}
+     
       <div className="absolute inset-0 overflow-hidden">
-        {/* Static stars */}
+       
         {[...Array(30)].map((_, i) => (
           <div
             key={i}
@@ -67,23 +72,34 @@ const Login = () => {
           />
         ))}
         
-        {/* Floating nebula clouds */}
+       
         <div className="absolute top-20 left-20 w-96 h-96 bg-indigo-600/10 rounded-full filter blur-3xl animate-pulse"></div>
         <div className="absolute bottom-20 right-20 w-96 h-96 bg-purple-600/10 rounded-full filter blur-3xl animate-pulse delay-1000"></div>
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-blue-600/10 rounded-full filter blur-3xl animate-pulse delay-500"></div>
       </div>
 
-      {/* Login Card - Dark themed */}
+     
       <div className="relative bg-gray-800/90 backdrop-blur-sm rounded-2xl shadow-xl p-8 w-full max-w-md border border-gray-700 z-10">
         <div className="text-center mb-8">
           <div className="flex justify-center mb-4">
-            {/* <div className="w-20 h-20 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-2xl flex items-center justify-center shadow-lg shadow-indigo-500/20">
+            <div className="w-20 h-20 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-2xl flex items-center justify-center shadow-lg shadow-indigo-500/20">
               <FiBook className="text-white text-4xl" />
-            </div> */}
+            </div>
           </div>
           <h2 className="text-3xl font-bold text-white">Welcome Back!</h2>
           <p className="text-gray-400 mt-2">Login to access your account</p>
         </div>
+
+        
+        {errorMessage && (
+          <div className="mb-6 p-4 bg-red-500/10 border border-red-500/30 rounded-lg flex items-start gap-3 animate-fadeIn">
+            <FiAlertCircle className="text-red-400 text-xl flex-shrink-0 mt-0.5" />
+            <div>
+              <p className="text-red-400 text-sm font-medium">Login Failed</p>
+              <p className="text-red-300 text-sm mt-1">{errorMessage}</p>
+            </div>
+          </div>
+        )}
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-2">
@@ -95,7 +111,9 @@ const Login = () => {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full pl-10 pr-4 py-2 bg-gray-700/50 border border-gray-600 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent placeholder-gray-400"
+                className={`w-full pl-10 pr-4 py-2 bg-gray-700/50 border ${
+                  errorMessage ? 'border-red-500/50 focus:ring-red-500' : 'border-gray-600 focus:ring-indigo-500'
+                } text-white rounded-lg focus:outline-none focus:ring-2 focus:border-transparent placeholder-gray-400`}
                 placeholder="Enter your email"
                 required
                 autoComplete="email"
@@ -112,7 +130,9 @@ const Login = () => {
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
-                className="w-full pl-10 pr-4 py-2 bg-gray-700/50 border border-gray-600 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent placeholder-gray-400"
+                className={`w-full pl-10 pr-4 py-2 bg-gray-700/50 border ${
+                  errorMessage ? 'border-red-500/50 focus:ring-red-500' : 'border-gray-600 focus:ring-indigo-500'
+                } text-white rounded-lg focus:outline-none focus:ring-2 focus:border-transparent placeholder-gray-400`}
                 placeholder="Enter your password"
                 required
                 autoComplete="current-password"
@@ -159,6 +179,8 @@ const Login = () => {
           </Link>
         </p>
       </div>
+
+      
     </div>
   );
 };

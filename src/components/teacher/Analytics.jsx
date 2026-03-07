@@ -10,7 +10,7 @@ import { PageLoader } from '../common/Loader';
 import BarChart from '../charts/BarChart';
 import PieChart from '../charts/PieChart';
 import LineChart from '../charts/LineChart';
-import StatCard from '../cards/StatCard';
+import StatCard from '../Cards/StatCard';
 import { 
   FiBookOpen, 
   FiUsers, 
@@ -149,7 +149,7 @@ const fetchArticleDetails = async (articleId) => {
 
   return (
     <div className="min-h-screen bg-gray-900 py-8 pt-24 relative overflow-hidden">
-      {/* Background stars effect */}
+      
       <div className="absolute inset-0 overflow-hidden">
         {[...Array(30)].map((_, i) => (
           <div
@@ -170,7 +170,7 @@ const fetchArticleDetails = async (articleId) => {
       </div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
-        {/* Header */}
+        
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
           <div>
             <h1 className="text-3xl font-bold text-white">Analytics Dashboard</h1>
@@ -180,7 +180,7 @@ const fetchArticleDetails = async (articleId) => {
           </div>
           
           <div className="flex items-center gap-3">
-            {/* Time Range Filter */}
+            
             <select
               value={timeRange}
               onChange={(e) => setTimeRange(e.target.value)}
@@ -191,7 +191,7 @@ const fetchArticleDetails = async (articleId) => {
               <option value="year" className="bg-gray-800">Last Year</option>
             </select>
 
-            {/* Export Button */}
+            
             <button
               onClick={exportAnalytics}
               className="flex items-center gap-2 px-4 py-2 bg-gray-800 border border-gray-700 text-white rounded-lg hover:bg-gray-700 transition-colors"
@@ -201,7 +201,7 @@ const fetchArticleDetails = async (articleId) => {
           </div>
         </div>
 
-        {/* Summary Cards */}
+        
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <StatCard
             title="Total Articles"
@@ -284,7 +284,7 @@ const fetchArticleDetails = async (articleId) => {
           </div>
         </div>
 
-        {/* Daily Engagement Line Chart */}
+        
         <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl shadow-lg p-6 mb-8 border border-gray-700">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-semibold text-white">Daily Engagement Trends</h2>

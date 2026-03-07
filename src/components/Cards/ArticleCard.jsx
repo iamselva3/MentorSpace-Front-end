@@ -18,7 +18,7 @@ const ArticleCard = ({ article, isStudent = false }) => {
 
   return (
     <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-700 group hover:border-indigo-500/30">
-      {/* Image placeholder if no image */}
+      
       <div className="h-40 bg-gradient-to-r from-indigo-500/20 to-purple-500/20 relative">
         {article.image ? (
           <img src={article.image} alt={article.title} className="w-full h-full object-cover" />
@@ -28,7 +28,7 @@ const ArticleCard = ({ article, isStudent = false }) => {
           </div>
         )}
         
-        {/* Category badge */}
+        
         <span className={`absolute top-3 right-3 px-3 py-1 rounded-full text-xs font-medium border ${getCategoryColor(article.category)}`}>
           {article.category}
         </span>

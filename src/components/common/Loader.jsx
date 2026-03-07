@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Loader = ({ size = 'medium', color = 'indigo' }) => {
-  // Size mappings for Tailwind classes
+  
   const sizeClasses = {
     small: 'w-5 h-5 border-2',
     medium: 'w-8 h-8 border-4',
@@ -9,7 +9,7 @@ const Loader = ({ size = 'medium', color = 'indigo' }) => {
     xl: 'w-16 h-16 border-4'
   };
 
-  // Color mappings for dark theme
+  
   const colorClasses = {
     indigo: 'border-indigo-400',
     blue: 'border-blue-400',
@@ -37,7 +37,7 @@ const Loader = ({ size = 'medium', color = 'indigo' }) => {
   );
 };
 
-// Full page loader with backdrop
+
 export const PageLoader = () => (
   <div className="fixed inset-0 bg-gray-900/80 backdrop-blur-sm flex items-center justify-center z-50">
     <div className="text-center">
@@ -47,13 +47,12 @@ export const PageLoader = () => (
   </div>
 );
 
-// Content loader with shimmer effect
 export const ContentLoader = () => (
   <div className="space-y-4 w-full max-w-4xl mx-auto p-4">
-    {/* Header shimmer */}
+    
     <div className="h-12 bg-gradient-to-r from-gray-700 via-gray-600 to-gray-700 rounded-lg animate-shimmer bg-[length:200%_100%]"></div>
     
-    {/* Content shimmers */}
+    
     <div className="space-y-3">
       <div className="h-4 bg-gradient-to-r from-gray-700 via-gray-600 to-gray-700 rounded animate-shimmer bg-[length:200%_100%] w-3/4"></div>
       <div className="h-4 bg-gradient-to-r from-gray-700 via-gray-600 to-gray-700 rounded animate-shimmer bg-[length:200%_100%] w-5/6"></div>
@@ -61,7 +60,7 @@ export const ContentLoader = () => (
       <div className="h-4 bg-gradient-to-r from-gray-700 via-gray-600 to-gray-700 rounded animate-shimmer bg-[length:200%_100%] w-4/5"></div>
     </div>
     
-    {/* Card shimmers */}
+    
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
       {[1, 2, 3].map(i => (
         <div key={i} className="bg-gray-800/50 backdrop-blur-sm rounded-lg p-4 border border-gray-700">
@@ -74,12 +73,12 @@ export const ContentLoader = () => (
   </div>
 );
 
-// Button loader
+
 export const ButtonLoader = () => (
   <Loader size="small" color="white" />
 );
 
-// Card loader
+
 export const CardLoader = () => (
   <div className="bg-gray-800/50 backdrop-blur-sm rounded-lg p-6 border border-gray-700">
     <div className="animate-pulse">
@@ -94,7 +93,6 @@ export const CardLoader = () => (
   </div>
 );
 
-// List loader
 export const ListLoader = ({ count = 5 }) => (
   <div className="space-y-3">
     {[...Array(count)].map((_, i) => (
@@ -110,7 +108,7 @@ export const ListLoader = ({ count = 5 }) => (
   </div>
 );
 
-// Table row loader
+
 export const TableRowLoader = ({ columns = 5 }) => (
   <div className="bg-gray-800/50 backdrop-blur-sm rounded-lg border border-gray-700 overflow-hidden">
     <div className="bg-gray-900/50 p-4 border-b border-gray-700">
@@ -128,7 +126,7 @@ export const TableRowLoader = ({ columns = 5 }) => (
   </div>
 );
 
-// Dot loader
+
 export const DotLoader = () => (
   <div className="flex items-center justify-center gap-1">
     <div className="w-2 h-2 bg-indigo-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
@@ -137,7 +135,7 @@ export const DotLoader = () => (
   </div>
 );
 
-// Progress loader
+
 export const ProgressLoader = ({ progress = 0 }) => (
   <div className="w-full">
     <div className="flex justify-between mb-1">
@@ -153,7 +151,7 @@ export const ProgressLoader = ({ progress = 0 }) => (
   </div>
 );
 
-// Spinner with text
+
 export const SpinnerWithText = ({ text = 'Loading...' }) => (
   <div className="flex flex-col items-center justify-center space-y-3">
     <Loader size="medium" color="indigo" />

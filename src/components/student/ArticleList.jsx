@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getArticles } from '../../api/endpoint';
-import ArticleCard from '../../components/cards/ArticleCard';
+import ArticleCard from '../../components/Cards/ArticleCard';
 import SearchBar from '../../components/common/SearchBar';
 import CategoryFilter from '../../components/common/CategoryFilter';
 import Loader from '../common/Loader';

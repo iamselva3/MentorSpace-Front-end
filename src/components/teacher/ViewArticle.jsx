@@ -155,7 +155,7 @@ const ViewArticle = () => {
 
   return (
     <div className="min-h-screen bg-gray-900 py-8 pt-24 relative overflow-hidden">
-      {/* Background stars effect */}
+      
       <div className="absolute inset-0 overflow-hidden">
         {[...Array(20)].map((_, i) => (
           <div
@@ -176,7 +176,7 @@ const ViewArticle = () => {
       </div>
 
       <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
-        {/* Navigation */}
+        
         <div className="flex items-center justify-between mb-6">
           <button
             onClick={() => navigate('/teacher/articles')}
@@ -217,7 +217,7 @@ const ViewArticle = () => {
           </div>
         </div>
 
-        {/* Article Header */}
+        
         <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden mb-6 border border-gray-700">
           {article.coverImage && (
             <div className="h-64 overflow-hidden border-b border-gray-700">
@@ -248,7 +248,7 @@ const ViewArticle = () => {
               <p className="text-gray-300 text-lg mb-4">{article.description}</p>
             )}
 
-            {/* Tags */}
+            
             {article.tags && article.tags.length > 0 && (
               <div className="flex items-center gap-2">
                 <FiTag className="text-gray-500" />
@@ -267,7 +267,7 @@ const ViewArticle = () => {
           </div>
         </div>
 
-        {/* Content Blocks */}
+        
         <div className="space-y-6">
           {article.contentBlocks && article.contentBlocks.length > 0 ? (
             article.contentBlocks.map((block, index) => (
@@ -286,7 +286,7 @@ const ViewArticle = () => {
                   </span>
                 </div>
 
-                {/* Block Content */}
+                
                 {renderContentBlock(block)}
               </div>
             ))
@@ -297,7 +297,7 @@ const ViewArticle = () => {
           )}
         </div>
 
-        {/* Stats Footer */}
+        
         <div className="mt-8 bg-gray-800/50 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-700">
           <h3 className="font-semibold text-white mb-4">Article Statistics</h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">

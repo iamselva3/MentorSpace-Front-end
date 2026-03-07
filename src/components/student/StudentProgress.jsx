@@ -26,8 +26,8 @@ const StudentProgress = () => {
   const [analytics, setAnalytics] = useState(null);
   const [categoryTime, setCategoryTime] = useState([]);
   const [progress, setProgress] = useState([]);
-  const [timeRange, setTimeRange] = useState('week'); // 'week', 'month', 'year'
-  const [selectedMetric, setSelectedMetric] = useState('articles'); // 'articles', 'time', 'highlights'
+  const [timeRange, setTimeRange] = useState('week'); 
+  const [selectedMetric, setSelectedMetric] = useState('articles'); 
 
   useEffect(() => {
     fetchProgressData();
@@ -50,7 +50,6 @@ const StudentProgress = () => {
     }
   };
 
-  // Calculate achievements
   const achievements = [
     {
       id: 1,
@@ -99,7 +98,6 @@ const StudentProgress = () => {
     }
   ];
 
-  // Generate daily progress data
   const generateDailyData = () => {
     const days = timeRange === 'week' ? 7 : timeRange === 'month' ? 30 : 365;
     const data = [];
@@ -128,7 +126,7 @@ const StudentProgress = () => {
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
+        
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900">My Learning Progress</h1>
           <p className="text-gray-600 mt-2">
@@ -136,7 +134,7 @@ const StudentProgress = () => {
           </p>
         </div>
 
-        {/* Stats Overview */}
+        
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <div className="bg-white rounded-xl shadow-sm p-6">
             <div className="flex items-center justify-between mb-2">
@@ -185,9 +183,9 @@ const StudentProgress = () => {
           </div>
         </div>
 
-        {/* Charts Section */}
+        
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-          {/* Reading Time by Category */}
+          
           <div className="bg-white rounded-xl shadow-sm p-6">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-lg font-semibold text-gray-800">Reading Time by Category</h2>
@@ -206,7 +204,7 @@ const StudentProgress = () => {
             )}
           </div>
 
-          {/* Progress Timeline */}
+          
           <div className="bg-white rounded-xl shadow-sm p-6">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-lg font-semibold text-gray-800">Progress Timeline</h2>
@@ -246,7 +244,7 @@ const StudentProgress = () => {
           </div>
         </div>
 
-        {/* Achievements Section */}
+        
         <div className="bg-white rounded-xl shadow-sm p-6 mb-8">
           <div className="flex items-center justify-between mb-6">
             <div>
@@ -284,7 +282,7 @@ const StudentProgress = () => {
                       <h3 className="font-semibold text-gray-800">{achievement.name}</h3>
                       <p className="text-sm text-gray-600 mb-2">{achievement.description}</p>
                       
-                      {/* Progress Bar */}
+                      
                       <div className="relative pt-1">
                         <div className="flex items-center justify-between text-xs mb-1">
                           <span className="text-gray-600">Progress</span>
@@ -313,7 +311,7 @@ const StudentProgress = () => {
           </div>
         </div>
 
-        {/* Reading Streak */}
+        
         <div className="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl shadow-sm p-6 text-white">
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div className="flex items-center gap-4 mb-4 md:mb-0">

@@ -27,7 +27,7 @@ Api.interceptors.response.use(
     if (error.response?.status === 401) {
       localStorage.removeItem("token");
       localStorage.removeItem("user");
-      // Prevent hard reload if we are already on the login page
+      
       if (window.location.pathname !== "/login") {
         window.location.href = "/login";
       }

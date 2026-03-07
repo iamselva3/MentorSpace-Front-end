@@ -7,13 +7,13 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 const PieChart = ({ data, nameKey, valueKey, height = 300 }) => {
 
   const colors = [
-    'rgba(79, 70, 229, 0.8)',   // indigo
-    'rgba(16, 185, 129, 0.8)',  // green
-    'rgba(245, 158, 11, 0.8)',  // amber
-    'rgba(239, 68, 68, 0.8)',   // red
-    'rgba(139, 92, 246, 0.8)',  // purple
-    'rgba(236, 72, 153, 0.8)',  // pink
-    'rgba(6, 182, 212, 0.8)',   // cyan
+    'rgba(79, 70, 229, 0.8)',   
+    'rgba(16, 185, 129, 0.8)',  
+    'rgba(245, 158, 11, 0.8)',  
+    'rgba(239, 68, 68, 0.8)',   
+    'rgba(139, 92, 246, 0.8)',  
+    'rgba(236, 72, 153, 0.8)',  
+    'rgba(6, 182, 212, 0.8)',   
   ];
 
   const chartData = {

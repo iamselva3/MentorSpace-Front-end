@@ -34,21 +34,18 @@ export const getArticleById = async (articleId) => {
 };
 
 export const createArticle = async (articleData) => {
-    console.log('📝 createArticle - articleData:', articleData);
-    console.log('🏷️ createArticle - tags before:', articleData.tags);
+
 
     const formData = new FormData();
 
-    // Add basic fields
+
     formData.append('title', articleData.title || '');
     formData.append('category', articleData.category || '');
     if (articleData.description) formData.append('description', articleData.description);
     if (articleData.coverImage) formData.append('coverImage', articleData.coverImage);
 
-    // ✅ FIX: Stringify tags ONLY ONCE
     const tagsToSend = articleData.tags || [];
-    console.log('🏷️ createArticle - tags being stringified:', tagsToSend);
-    formData.append('tags', JSON.stringify(tagsToSend)); // Stringify once
+    formData.append('tags', JSON.stringify(tagsToSend));
 
     const contentBlocks = articleData.contentBlocks || [];
     const contentBlocksWithoutFiles = [];
@@ -60,7 +57,6 @@ export const createArticle = async (articleData) => {
         if (block.type === 'text') {
             contentBlocksWithoutFiles.push(block);
         } else {
-            // Check if content is a File object
             if (block.content && block.content instanceof File) {
                 files.push({
                     file: block.content,
@@ -70,7 +66,7 @@ export const createArticle = async (articleData) => {
 
                 contentBlocksWithoutFiles.push({
                     ...block,
-                    content: '' // Will be replaced with URL after upload
+                    content: '' 
                 });
             } else {
                 contentBlocksWithoutFiles.push(block);
@@ -98,39 +94,28 @@ export const createArticle = async (articleData) => {
 };
 
 export const updateArticle = async (id, articleData) => {
-    console.log('📤 FRONTEND - updateArticle called with:', articleData);
-    console.log('📤 FRONTEND - tags:', articleData.tags);
-    console.log('📤 FRONTEND - contentBlocks:', articleData.contentBlocks);
-
-    // Check if there are any files in content blocks
+    
     const hasFiles = articleData.contentBlocks?.some(
         block => block.content && block.content instanceof File
     );
 
-    console.log('📤 FRONTEND - hasFiles:', hasFiles);
-
     if (hasFiles) {
-        // Use FormData for files
         const formData = new FormData();
 
-        // Add basic fields - make sure these are NOT undefined
         formData.append('title', articleData.title || '');
         formData.append('category', articleData.category || '');
         formData.append('description', articleData.description || '');
         formData.append('coverImage', articleData.coverImage || '');
 
-        // Handle tags - stringify ONLY ONCE
+        
         const tagsToSend = Array.isArray(articleData.tags) ? articleData.tags : [];
-        console.log('📤 FRONTEND - tags being stringified:', tagsToSend);
+
         formData.append('tags', JSON.stringify(tagsToSend));
 
-        // Separate files from content blocks
         const contentBlocksWithoutFiles = [];
         const files = [];
 
-        // Make sure we're iterating through the blocks correctly
         articleData.contentBlocks.forEach((block, index) => {
-            console.log(`📤 FRONTEND - Processing block ${index}:`, block.type, block.content instanceof File ? 'FILE' : block.content);
 
             if (block.type === 'text') {
                 contentBlocksWithoutFiles.push(block);
@@ -144,7 +129,7 @@ export const updateArticle = async (id, articleData) => {
 
                     contentBlocksWithoutFiles.push({
                         ...block,
-                        content: '' // Will be replaced with URL after upload
+                        content: ''
                     });
                 } else {
                     contentBlocksWithoutFiles.push(block);
@@ -152,11 +137,8 @@ export const updateArticle = async (id, articleData) => {
             }
         });
 
-        // Add content blocks as JSON string
-        console.log('📤 FRONTEND - contentBlocksWithoutFiles:', contentBlocksWithoutFiles);
         formData.append('contentBlocks', JSON.stringify(contentBlocksWithoutFiles));
 
-        // Append files with their indices
         files.forEach(({ file, index, type }) => {
             const fieldName = type === 'image' ? 'images' :
                 type === 'video' ? 'videos' : 'objects';
@@ -164,11 +146,9 @@ export const updateArticle = async (id, articleData) => {
             formData.append(fieldName, file);
             formData.append(`index_${fieldName}_${index}`, index.toString());
 
-            console.log(`📤 FRONTEND - Sending ${type} for block ${index} with field: ${fieldName}, index field: index_${fieldName}_${index}=${index}`);
         });
 
-        // Log all FormData entries for debugging
-        console.log('📤 FRONTEND - FormData entries:');
+        
         for (let pair of formData.entries()) {
             console.log(pair[0], pair[1] instanceof File ? `File: ${pair[1].name}` : pair[1]);
         }
@@ -179,7 +159,7 @@ export const updateArticle = async (id, articleData) => {
             }
         });
     } else {
-        // No files, send as JSON
+       
         const jsonData = {
             title: articleData.title || '',
             category: articleData.category || '',
@@ -189,7 +169,7 @@ export const updateArticle = async (id, articleData) => {
             contentBlocks: articleData.contentBlocks || []
         };
 
-        console.log('📤 FRONTEND - sending JSON:', jsonData);
+       
 
         return Api.patch(`/api/articles/${id}`, jsonData, {
             headers: {
@@ -253,30 +233,10 @@ export const getCategoryDistribution = async () => {
 };
 
 
-// export const trackArticleView = async (articleId) => {
-//     const response = await Api.post("/api/tracking/view", { articleId });
-//     return response.data;
-// };
-
-
 export const trackTimeSpent = async (articleId, duration) => {
     const response = await Api.post("/api/tracking/time", { articleId, duration });
     return response.data;
 };
-
-
-// export const startTrackingSession = async (articleId) => {
-//     const response = await Api.post("/api/tracking/start", { articleId });
-//     return response.data;
-// };
-
-// export const endTrackingSession = async (sessionId, duration) => {
-//     const response = await Api.put(`/api/tracking/end/${sessionId}`, { duration });
-//     return response.data;
-// };
-
-
-// In your endpoint.js
 
 
 export const trackArticleView = async (articleId) => {
@@ -298,8 +258,6 @@ export const trackReadingTime = async (articleId, duration) => {
         throw error;
     }
 };
-
-// Note: Remove startTrackingSession and endTrackingSession if they don't exist
 
 
 export const getArticleHighlights = async (articleId) => {

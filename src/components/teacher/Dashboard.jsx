@@ -86,7 +86,7 @@ const avgReadingTime = calculateAvgReadingTime();
 
   return (
     <div className="min-h-screen bg-gray-900 py-8 pt-24 relative overflow-hidden">
-      {/* Background stars effect */}
+      
       <div className="absolute inset-0 overflow-hidden">
         {[...Array(30)].map((_, i) => (
           <div
@@ -107,7 +107,7 @@ const avgReadingTime = calculateAvgReadingTime();
       </div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
-        {/* Header */}
+        
         <div className="mb-8">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
@@ -115,7 +115,7 @@ const avgReadingTime = calculateAvgReadingTime();
               <p className="text-gray-400 mt-2">Welcome back! Here's your analytics overview</p>
             </div>
             
-            {/* Quick Stats Pill */}
+            
             <div className="flex items-center gap-3 bg-gray-800/90 backdrop-blur-sm px-4 py-2 rounded-full border border-gray-700">
               <div className="flex items-center gap-1 text-indigo-400">
                 <FiTrendingUp className="text-lg" />
@@ -130,7 +130,7 @@ const avgReadingTime = calculateAvgReadingTime();
           </div>
         </div>
         
-        {/* Stats Cards Grid */}
+        
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <div className="group bg-gray-800/50 backdrop-blur-sm rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-6 border border-gray-700 hover:border-indigo-500/30">
             <div className="flex items-center justify-between mb-4">
@@ -247,7 +247,7 @@ const avgReadingTime = calculateAvgReadingTime();
           </div>
         </div>
 
-        {/* Top Categories */}
+        
         <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl shadow-lg p-6 border border-gray-700">
           <h3 className="text-lg font-semibold text-white mb-4">Top Categories</h3>
           {topCategories.length > 0 ? (
@@ -286,7 +286,7 @@ const avgReadingTime = calculateAvgReadingTime();
                     </div>
                   </div>
 
-                  {/* Mini progress bar */}
+                  
                   <div className="w-16 ml-2">
                     <div className="w-full bg-gray-700 rounded-full h-2">
                       <div 

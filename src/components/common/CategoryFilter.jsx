@@ -20,7 +20,7 @@ const CategoryFilter = ({
   multiple = false,
   showCount = true,
   counts = {},
-  variant = 'dropdown' // 'dropdown', 'chips', 'sidebar'
+  variant = 'dropdown' 
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedCategories, setSelectedCategories] = useState(
@@ -105,7 +105,7 @@ const CategoryFilter = ({
     return colors[category] || 'bg-gray-500/20 text-gray-400 border-gray-500/30 hover:bg-gray-500/30';
   };
 
-  // Chips variant
+  
   if (variant === 'chips') {
     return (
       <div className="flex flex-wrap gap-2">
@@ -158,7 +158,7 @@ const CategoryFilter = ({
     );
   }
 
-  // Sidebar variant
+  
   if (variant === 'sidebar') {
     return (
       <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl border border-gray-700 p-4">
@@ -211,7 +211,7 @@ const CategoryFilter = ({
     );
   }
 
-  // Default dropdown variant
+  
   return (
     <div className="relative w-full sm:w-auto" ref={dropdownRef}>
       <button
@@ -239,7 +239,7 @@ const CategoryFilter = ({
 
       {isOpen && (
         <div className="absolute z-50 w-full mt-1 bg-gray-800 border border-gray-700 rounded-lg shadow-xl max-h-60 overflow-auto">
-          {/* Clear selection option */}
+          
           {(multiple ? selectedCategories.length > 0 : selected) && (
             <button
               onClick={handleClear}
@@ -250,7 +250,7 @@ const CategoryFilter = ({
             </button>
           )}
 
-          {/* All categories option (for single select) */}
+          
           {!multiple && (
             <button
               onClick={() => handleSelect('')}
@@ -264,7 +264,7 @@ const CategoryFilter = ({
             </button>
           )}
 
-          {/* Category list */}
+          
           {categories.map((category) => (
             <button
               key={category}
@@ -296,7 +296,7 @@ const CategoryFilter = ({
             </button>
           ))}
 
-          {/* No categories */}
+          
           {categories.length === 0 && (
             <div className="px-4 py-3 text-sm text-gray-400 text-center">
               No categories available
@@ -308,7 +308,6 @@ const CategoryFilter = ({
   );
 };
 
-// Preset category filter with common categories
 export const ArticleCategoryFilter = ({ selected, onChange, counts }) => {
   const categories = ['Science', 'Mathematics', 'English', 'History', 'Geography', 'Art', 'Technology'];
   
@@ -324,7 +323,6 @@ export const ArticleCategoryFilter = ({ selected, onChange, counts }) => {
   );
 };
 
-// Multiple select category filter
 export const MultiCategoryFilter = ({ selected = [], onChange, counts }) => {
   const categories = ['Science', 'Mathematics', 'English', 'History', 'Geography', 'Art', 'Technology'];
   

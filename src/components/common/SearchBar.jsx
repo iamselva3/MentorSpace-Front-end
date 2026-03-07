@@ -87,7 +87,7 @@ const SearchBar = ({
 
   return (
     <div className="relative w-full" ref={searchRef}>
-      {/* Search Input Container */}
+      
       <div className={`
         relative flex items-center w-full
         ${isFocused ? 'ring-2 ring-indigo-500 ring-opacity-50' : ''}
@@ -121,10 +121,10 @@ const SearchBar = ({
         )}
       </div>
 
-      {/* Search Suggestions Dropdown */}
+      
       {(isFocused || showRecent) && (showSuggestions || recentSearches.length > 0) && (
         <div className="absolute z-50 w-full mt-1 bg-gray-800 border border-gray-700 rounded-lg shadow-xl overflow-hidden">
-          {/* Recent Searches */}
+          
           {recentSearches.length > 0 && showRecent && (
             <div className="p-2">
               <div className="flex items-center gap-2 px-3 py-2 text-xs font-medium text-gray-400 uppercase tracking-wider">
@@ -144,7 +144,6 @@ const SearchBar = ({
             </div>
           )}
 
-          {/* Popular Suggestions */}
           {suggestions.length > 0 && showSuggestions && (
             <div className="p-2 border-t border-gray-700">
               <div className="flex items-center gap-2 px-3 py-2 text-xs font-medium text-gray-400 uppercase tracking-wider">
@@ -163,7 +162,7 @@ const SearchBar = ({
             </div>
           )}
 
-          {/* No Results */}
+          
           {suggestions.length === 0 && recentSearches.length === 0 && (
             <div className="px-4 py-3 text-sm text-gray-400">
               No suggestions available
@@ -172,7 +171,7 @@ const SearchBar = ({
         </div>
       )}
 
-      {/* Search Stats (optional) */}
+      
       {localValue.length > 0 && (
         <div className="absolute -bottom-6 left-0 text-xs text-gray-500">
           Press Enter to search
@@ -182,7 +181,7 @@ const SearchBar = ({
   );
 };
 
-// Preset search bar with common functionality
+
 export const ArticleSearchBar = ({ onSearch, totalArticles }) => {
   const [recentSearches, setRecentSearches] = useState([]);
 
@@ -214,7 +213,6 @@ export const ArticleSearchBar = ({ onSearch, totalArticles }) => {
   );
 };
 
-// Compact search bar for mobile
 export const CompactSearchBar = ({ onSearch }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
