@@ -37,20 +37,20 @@ const CategoryCard = ({ category, count, icon, color = 'indigo' }) => {
       to={`/student/articles?category=${category}`}
       className="block group"
     >
-      <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 p-6">
-        <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${colors[color]} text-white flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
+      <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 p-6 border border-gray-700 hover:border-indigo-500/30">
+        <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${colors[color]} text-white flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-lg`}>
           <CategoryIcon className="text-2xl" />
         </div>
         
-        <h3 className="font-semibold text-lg text-gray-900 mb-1">
+        <h3 className="font-semibold text-lg text-white mb-1 group-hover:text-indigo-400 transition-colors">
           {category}
         </h3>
         
-        <p className="text-gray-500 text-sm mb-4">
+        <p className="text-gray-400 text-sm mb-4">
           {count} {count === 1 ? 'article' : 'articles'}
         </p>
         
-        <div className="w-full h-1 bg-gray-100 rounded-full overflow-hidden">
+        <div className="w-full h-1 bg-gray-700 rounded-full overflow-hidden">
           <div 
             className={`h-full bg-gradient-to-r ${colors[color]} rounded-full`}
             style={{ width: `${Math.min(100, (count / 50) * 100)}%` }}

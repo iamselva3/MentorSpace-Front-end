@@ -5,7 +5,7 @@ import { Pie } from 'react-chartjs-2';
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const PieChart = ({ data, nameKey, valueKey, height = 300 }) => {
-  // Generate vibrant colors
+
   const colors = [
     'rgba(79, 70, 229, 0.8)',   // indigo
     'rgba(16, 185, 129, 0.8)',  // green

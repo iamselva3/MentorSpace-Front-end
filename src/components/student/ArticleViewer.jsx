@@ -17,7 +17,6 @@ const StudentArticleView = () => {
   const [loading, setLoading] = useState(true);
   const [timeSpent, setTimeSpent] = useState(0);
   
-  // Missing state declarations - ADD THESE
   const [showHighlightModal, setShowHighlightModal] = useState(false);
   const [selectedText, setSelectedText] = useState('');
   const [selectionPosition, setSelectionPosition] = useState({ x: 0, y: 0 });
@@ -28,7 +27,6 @@ const StudentArticleView = () => {
   const trackingInterval = useRef(null);
 
   useEffect(() => {
-    // Reset tracking refs when article changes
     startTime.current = Date.now();
     hasTrackedView.current = false;
     hasTrackedDuration.current = false;
@@ -37,7 +35,6 @@ const StudentArticleView = () => {
     fetchArticle();
     
     return () => {
-      // Clean up interval and track final duration
       if (trackingInterval.current) {
         clearInterval(trackingInterval.current);
       }
@@ -46,7 +43,6 @@ const StudentArticleView = () => {
   }, [id]);
 
   useEffect(() => {
-    // Start timer interval
     trackingInterval.current = setInterval(() => {
       const currentDuration = Math.floor((Date.now() - startTime.current) / 1000);
       setTimeSpent(currentDuration);
@@ -62,13 +58,11 @@ const StudentArticleView = () => {
   useEffect(() => {
     const handleVisibilityChange = () => {
       if (document.visibilityState === 'hidden') {
-        // Page is hidden, track current duration
         trackDuration();
       }
     };
 
     const handleBeforeUnload = () => {
-      // User is leaving the page, track duration
       trackDuration();
     };
 
@@ -95,8 +89,6 @@ const StudentArticleView = () => {
       }
 
       setArticle(articleData);
-      
-      // Track view only once when article loads
       trackView();
       
     } catch (error) {
@@ -107,7 +99,6 @@ const StudentArticleView = () => {
   };
 
   const trackView = async () => {
-    // Prevent multiple view tracking
     if (hasTrackedView.current) return;
     hasTrackedView.current = true;
     
@@ -116,18 +107,15 @@ const StudentArticleView = () => {
       console.log('View tracked once');
     } catch (error) {
       console.error('Failed to track view:', error);
-      // Reset flag if failed to allow retry
       hasTrackedView.current = false;
     }
   };
 
   const trackDuration = async () => {
-    // Prevent multiple duration tracking
     if (hasTrackedDuration.current) return;
     
     const duration = Math.floor((Date.now() - startTime.current) / 1000);
     
-    // Only track if duration is significant (more than 5 seconds)
     if (duration <= 5) return;
     
     hasTrackedDuration.current = true;
@@ -137,7 +125,6 @@ const StudentArticleView = () => {
       console.log(`Duration tracked once: ${duration} seconds`);
     } catch (error) {
       console.error('Failed to track reading time:', error);
-      // Reset flag if failed to allow retry
       hasTrackedDuration.current = false;
     }
   };
@@ -170,7 +157,7 @@ const StudentArticleView = () => {
         color
       });
       console.log('Highlight saved');
-      setShowHighlightModal(false); // Close modal after saving
+      setShowHighlightModal(false);
     } catch (error) {
       console.error('Failed to save highlight:', error);
     }
@@ -179,39 +166,65 @@ const StudentArticleView = () => {
   if (loading) return <Loader />;
 
   if (!article) return (
-    <div className="text-center py-12">
-      Article not found
+    <div className="min-h-screen bg-gray-900 flex items-center justify-center">
+      <div className="text-center py-12">
+        <div className="w-20 h-20 bg-red-500/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-red-500/30">
+          <FiBookOpen className="text-3xl text-red-400" />
+        </div>
+        <p className="text-gray-300 text-lg">Article not found</p>
+        <p className="text-gray-500 mt-2">The article you're looking for doesn't exist or has been removed</p>
+      </div>
     </div>
   );
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-900 py-8 pt-24 relative overflow-hidden">
+      {/* Background stars effect */}
+      <div className="absolute inset-0 overflow-hidden">
+        {[...Array(20)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute bg-white rounded-full"
+            style={{
+              width: Math.random() * 2 + 'px',
+              height: Math.random() * 2 + 'px',
+              top: Math.random() * 100 + '%',
+              left: Math.random() * 100 + '%',
+              opacity: Math.random() * 0.2,
+              animation: `twinkle ${Math.random() * 3 + 2}s infinite`
+            }}
+          />
+        ))}
+        <div className="absolute top-20 left-20 w-96 h-96 bg-indigo-600/5 rounded-full filter blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-20 right-20 w-96 h-96 bg-purple-600/5 rounded-full filter blur-3xl animate-pulse delay-1000"></div>
+      </div>
+
+      <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
         {/* Timer Bar */}
-        <div className="bg-white rounded-lg shadow-sm p-4 mb-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl shadow-lg p-4 mb-6 flex flex-col sm:flex-row items-center justify-between gap-4 border border-gray-700">
           <div className="flex items-center gap-4">
-            <span className="flex items-center gap-2 text-gray-600">
-              <FiEye className="text-indigo-600" />
+            <span className="flex items-center gap-2 text-gray-300">
+              <FiEye className="text-indigo-400" />
               <span className="text-sm">
                 Views: {article?.totalViews || 0}
               </span>
             </span>
-            <span className="flex items-center gap-2 text-gray-600">
-              <FiClock className="text-indigo-600" />
+            <span className="flex items-center gap-2 text-gray-300">
+              <FiClock className="text-indigo-400" />
               <span className="text-sm">
                 Reading: {Math.floor(timeSpent / 60)}m {timeSpent % 60}s
               </span>
             </span>
           </div>
-          <span className="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-xs font-medium">
+          <span className="px-3 py-1 bg-indigo-500/20 text-indigo-400 rounded-full text-xs font-medium border border-indigo-500/30">
             {article?.category || 'Uncategorized'}
           </span>
         </div>
 
         {/* Article Header */}
-        <div className="bg-white rounded-xl shadow-sm overflow-hidden mb-6">
+        <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden mb-6 border border-gray-700">
           {article?.coverImage && (
-            <div className="h-64 overflow-hidden">
+            <div className="h-64 overflow-hidden border-b border-gray-700">
               <img
                 src={article.coverImage}
                 alt={article.title}
@@ -220,21 +233,21 @@ const StudentArticleView = () => {
             </div>
           )}
           <div className="p-6 sm:p-8">
-            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">
+            <h1 className="text-2xl sm:text-3xl font-bold text-white mb-4">
               {article?.title}
             </h1>
             {article?.description && (
-              <p className="text-gray-600 text-lg mb-4">
+              <p className="text-gray-300 text-lg mb-4">
                 {article.description}
               </p>
             )}
             {article?.createdBy && (
-              <div className="flex items-center gap-2 text-sm text-gray-500">
+              <div className="flex items-center gap-2 text-sm text-gray-400">
                 <FiBookOpen className="text-indigo-400" />
                 <span>
                   By {article.createdBy.name || 'Unknown'}
                 </span>
-                <span className="text-gray-300">•</span>
+                <span className="text-gray-600">•</span>
                 <span>
                   {new Date(article.createdAt).toLocaleDateString()}
                 </span>
@@ -252,11 +265,11 @@ const StudentArticleView = () => {
           {article?.contentBlocks?.map((block, index) => (
             <div
               key={block._id || index}
-              className="bg-white rounded-xl shadow-sm p-6"
+              className="bg-gray-800/50 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-700 hover:border-indigo-500/30 transition-colors"
             >
               {block.type === 'text' && (
                 <div
-                  className="prose max-w-none cursor-text select-text"
+                  className="prose prose-invert text-white max-w-none cursor-text select-text"
                   dangerouslySetInnerHTML={{ __html: block.content || '' }}
                 />
               )}
@@ -264,22 +277,36 @@ const StudentArticleView = () => {
                 <img
                   src={block.content}
                   alt="Article"
-                  className="rounded-lg shadow-lg"
+                  className="rounded-lg shadow-lg border border-gray-700"
                 />
               )}
               {block.type === 'video' && (
                 <video
                   src={block.content}
                   controls
-                  className="w-full rounded-lg shadow-lg"
+                  className="w-full rounded-lg shadow-lg border border-gray-700"
                 />
               )}
             </div>
           ))}
         </div>
+
+        {/* Reading Progress Footer */}
+        <div className="mt-8 bg-gray-800/30 backdrop-blur-sm rounded-lg p-4 border border-gray-700">
+          <div className="flex items-center justify-between text-sm text-gray-400">
+            <span>Reading progress</span>
+            <span>{Math.floor(timeSpent / 60)} minutes spent</span>
+          </div>
+          <div className="mt-2 w-full bg-gray-700 rounded-full h-2 overflow-hidden">
+            <div 
+              className="bg-gradient-to-r from-indigo-500 to-purple-500 h-2 rounded-full transition-all duration-300"
+              style={{ width: `${Math.min(100, (timeSpent / 300) * 100)}%` }}
+            ></div>
+          </div>
+        </div>
       </div>
 
-      {/* Highlight Modal - Now all variables are defined */}
+      {/* Highlight Modal */}
       <HighlightModal
         isOpen={showHighlightModal}
         onClose={() => setShowHighlightModal(false)}

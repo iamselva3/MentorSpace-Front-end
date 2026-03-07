@@ -1,5 +1,5 @@
 import React from 'react';
-import { FiTrendingUp, FiTrendingDown, FiMinus } from 'react-icons/fi';
+import { FiTrendingUp, FiTrendingDown, FiMinus, FiUsers, FiEye, FiBookOpen, FiClock } from 'react-icons/fi';
 
 const StatCard = ({ 
   title, 
@@ -15,77 +15,85 @@ const StatCard = ({
 }) => {
   const colorClasses = {
     indigo: {
-      bg: 'bg-indigo-100',
-      text: 'text-indigo-600',
-      dark: 'bg-indigo-600',
-      light: 'bg-indigo-50'
+      bg: 'bg-indigo-500/10',
+      text: 'text-indigo-400',
+      dark: 'bg-indigo-500',
+      light: 'bg-indigo-500/5',
+      border: 'border-indigo-500/30'
     },
     blue: {
-      bg: 'bg-blue-100',
-      text: 'text-blue-600',
-      dark: 'bg-blue-600',
-      light: 'bg-blue-50'
+      bg: 'bg-blue-500/10',
+      text: 'text-blue-400',
+      dark: 'bg-blue-500',
+      light: 'bg-blue-500/5',
+      border: 'border-blue-500/30'
     },
     green: {
-      bg: 'bg-green-100',
-      text: 'text-green-600',
-      dark: 'bg-green-600',
-      light: 'bg-green-50'
+      bg: 'bg-green-500/10',
+      text: 'text-green-400',
+      dark: 'bg-green-500',
+      light: 'bg-green-500/5',
+      border: 'border-green-500/30'
     },
     red: {
-      bg: 'bg-red-100',
-      text: 'text-red-600',
-      dark: 'bg-red-600',
-      light: 'bg-red-50'
+      bg: 'bg-red-500/10',
+      text: 'text-red-400',
+      dark: 'bg-red-500',
+      light: 'bg-red-500/5',
+      border: 'border-red-500/30'
     },
     purple: {
-      bg: 'bg-purple-100',
-      text: 'text-purple-600',
-      dark: 'bg-purple-600',
-      light: 'bg-purple-50'
+      bg: 'bg-purple-500/10',
+      text: 'text-purple-400',
+      dark: 'bg-purple-500',
+      light: 'bg-purple-500/5',
+      border: 'border-purple-500/30'
     },
     yellow: {
-      bg: 'bg-yellow-100',
-      text: 'text-yellow-600',
-      dark: 'bg-yellow-600',
-      light: 'bg-yellow-50'
+      bg: 'bg-yellow-500/10',
+      text: 'text-yellow-400',
+      dark: 'bg-yellow-500',
+      light: 'bg-yellow-500/5',
+      border: 'border-yellow-500/30'
     },
     orange: {
-      bg: 'bg-orange-100',
-      text: 'text-orange-600',
-      dark: 'bg-orange-600',
-      light: 'bg-orange-50'
+      bg: 'bg-orange-500/10',
+      text: 'text-orange-400',
+      dark: 'bg-orange-500',
+      light: 'bg-orange-500/5',
+      border: 'border-orange-500/30'
     },
     pink: {
-      bg: 'bg-pink-100',
-      text: 'text-pink-600',
-      dark: 'bg-pink-600',
-      light: 'bg-pink-50'
+      bg: 'bg-pink-500/10',
+      text: 'text-pink-400',
+      dark: 'bg-pink-500',
+      light: 'bg-pink-500/5',
+      border: 'border-pink-500/30'
     }
   };
 
   const trendIcons = {
-    up: <FiTrendingUp className="text-green-600" />,
-    down: <FiTrendingDown className="text-red-600" />,
-    neutral: <FiMinus className="text-gray-600" />
+    up: <FiTrendingUp className="text-green-400" />,
+    down: <FiTrendingDown className="text-red-400" />,
+    neutral: <FiMinus className="text-gray-400" />
   };
 
   const trendColors = {
-    up: 'text-green-600',
-    down: 'text-red-600',
-    neutral: 'text-gray-600'
+    up: 'text-green-400',
+    down: 'text-red-400',
+    neutral: 'text-gray-400'
   };
 
   if (loading) {
     return (
-      <div className={`bg-white rounded-xl shadow-sm p-6 animate-pulse ${className}`}>
+      <div className={`bg-gray-800/50 backdrop-blur-sm rounded-xl border border-gray-700 p-6 animate-pulse ${className}`}>
         <div className="flex items-start justify-between">
           <div className="flex-1">
-            <div className="h-4 bg-gray-200 rounded w-24 mb-2"></div>
-            <div className="h-8 bg-gray-300 rounded w-32 mb-2"></div>
-            <div className="h-3 bg-gray-200 rounded w-20"></div>
+            <div className="h-4 bg-gray-700 rounded w-24 mb-2"></div>
+            <div className="h-8 bg-gray-600 rounded w-32 mb-2"></div>
+            <div className="h-3 bg-gray-700 rounded w-20"></div>
           </div>
-          <div className="w-12 h-12 bg-gray-200 rounded-lg"></div>
+          <div className="w-12 h-12 bg-gray-700 rounded-lg"></div>
         </div>
       </div>
     );
@@ -94,19 +102,19 @@ const StatCard = ({
   return (
     <div 
       className={`
-        bg-white rounded-xl shadow-sm p-6 
-        hover:shadow-md transition-all duration-300
-        ${onClick ? 'cursor-pointer hover:scale-105' : ''}
+        bg-gray-800/50 backdrop-blur-sm rounded-xl border border-gray-700 p-6 
+        hover:shadow-xl transition-all duration-300
+        ${onClick ? 'cursor-pointer hover:scale-105 hover:border-indigo-500/30' : ''}
         ${className}
       `}
       onClick={onClick}
     >
       <div className="flex items-start justify-between">
         <div className="flex-1">
-          <p className="text-sm font-medium text-gray-600 mb-1">{title}</p>
+          <p className="text-sm font-medium text-gray-400 mb-1">{title}</p>
           
           <div className="flex items-baseline gap-2">
-            <h3 className="text-2xl font-bold text-gray-900">
+            <h3 className="text-2xl font-bold text-white">
               {typeof value === 'number' ? value.toLocaleString() : value}
             </h3>
             
@@ -122,29 +130,28 @@ const StatCard = ({
             <p className="text-xs text-gray-500 mt-1">{subtitle}</p>
           )}
 
-          {/* Mini progress bar for stats like completion rate */}
-          {title.toLowerCase().includes('progress') || title.toLowerCase().includes('completion') && (
+         
+          {title.toLowerCase().includes('progress') || title.toLowerCase().includes('completion') ? (
             <div className="mt-3">
-              <div className="w-full bg-gray-200 rounded-full h-1.5">
+              <div className="w-full bg-gray-700 rounded-full h-1.5">
                 <div 
                   className={`h-1.5 rounded-full ${colorClasses[color].dark}`}
                   style={{ width: `${value}%` }}
                 ></div>
               </div>
             </div>
-          )}
+          ) : null}
         </div>
 
-        <div className={`p-3 rounded-lg ${colorClasses[color].bg}`}>
+        <div className={`p-3 rounded-lg ${colorClasses[color].bg} border ${colorClasses[color].border}`}>
           <div className={`text-xl ${colorClasses[color].text}`}>
             {icon}
           </div>
         </div>
       </div>
 
-      {/* Footer section for additional info */}
       {trend && trendValue && (
-        <div className="mt-3 pt-3 border-t border-gray-100">
+        <div className="mt-3 pt-3 border-t border-gray-700">
           <p className="text-xs text-gray-500">
             Compared to previous period
           </p>
@@ -154,7 +161,7 @@ const StatCard = ({
   );
 };
 
-// Variants for specific use cases
+
 
 export const RevenueStatCard = ({ value, trend }) => (
   <StatCard

@@ -5,7 +5,7 @@
 @layer base {
   html {
     background-color: #111827;
-  
+
   }
 
   body {
@@ -356,3 +356,86 @@ body,
     transform: translateY(0);
   }
 }
+
+
+
+@keyframes twinkle {
+
+  0%,
+  100% {
+    opacity: 0.2;
+  }
+
+  50% {
+    opacity: 0.8;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%) rotate(45deg);
+  }
+
+  100% {
+    transform: translateX(100%) rotate(45deg);
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite;
+}
+
+/* Custom border width */
+.border-3 {
+  border-width: 3px;
+}
+
+/* Grid pattern for background */
+.bg-grid-pattern {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+
+
+
+@keyframes twinkle {
+
+  0%,
+  100% {
+    opacity: 0.2;
+  }
+
+  50% {
+    opacity: 0.8;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%) rotate(45deg);
+  }
+
+  100% {
+    transform: translateX(100%) rotate(45deg);
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite;
+}
+
+/* Custom border width */
+.border-3 {
+  border-width: 3px;
+}
+
+/* Grid pattern for background */
+.bg-grid-pattern {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+

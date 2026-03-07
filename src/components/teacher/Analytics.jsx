@@ -38,15 +38,50 @@ const Analytics = () => {
     end: new Date()
   });
 
+  
+  const articleAnalytics = analytics?.data?.articleAnalytics || [];
+
+
+  const calculateAvgReadingTime = () => {
+  if (!articleAnalytics || articleAnalytics.length === 0) return 0;
+  
+  const totalDuration = articleAnalytics.reduce((sum, article) => {
+    return sum + (article.totalDuration || 0);
+  }, 0);
+  
+  const totalArticles = articleAnalytics.length;
+  const avgMinutes = Math.round((totalDuration / totalArticles) / 60); 
+  
+  return avgMinutes || 0;
+};
+
+
+const avgReadingTime = calculateAvgReadingTime();
+
+
+
+const calculateCompletionRate = () => {
+  if (!studentProgress || studentProgress.length === 0) return 0;
+  
+ 
+  const completedCount = studentProgress.filter(student => 
+    student.progress === 100 || student.completed === true
+  ).length;
+  
+  return Math.round((completedCount / studentProgress.length) * 100);
+};
   useEffect(() => {
     fetchAnalytics();
   }, []);
 
-  useEffect(() => {
-    if (selectedArticle) {
-      fetchArticleDetails(selectedArticle);
-    }
-  }, [selectedArticle]);
+
+useEffect(() => {
+  
+  if (selectedArticle) {
+    fetchArticleDetails(selectedArticle);
+  } else {
+  }
+}, [selectedArticle]);
 
   const fetchAnalytics = async () => {
     try {
@@ -57,8 +92,8 @@ const Analytics = () => {
       ]);
       
       setAnalytics(analyticsData);
-      setDailyData(dailyEngagement);
-      setCategoryData(categoryDist);
+      setDailyData(dailyEngagement?.data?.dailyEngagement);
+      setCategoryData(categoryDist.data);
     } catch (error) {
       console.error('Failed to fetch analytics:', error);
       toast.error('Failed to load analytics');
@@ -66,20 +101,30 @@ const Analytics = () => {
       setLoading(false);
     }
   };
+const fetchArticleDetails = async (articleId) => {
+  try {
+    const [stats, progress] = await Promise.all([
+      getArticleStats(articleId),
+      getStudentProgress(articleId)
+    ]);
 
-  const fetchArticleDetails = async (articleId) => {
-    try {
-      const [stats, progress] = await Promise.all([
-        getArticleStats(articleId),
-        getStudentProgress(articleId)
-      ]);
-      setArticleStats(stats);
+   
+
+    setArticleStats(stats?.data?.article);
+    
+    if (Array.isArray(progress)) {
       setStudentProgress(progress);
-    } catch (error) {
-      console.error('Failed to fetch article details:', error);
-      toast.error('Failed to load article details');
+    } else if (progress?.data && Array.isArray(progress.data)) {
+      setStudentProgress(progress.data);
+    } else {
+      setStudentProgress([]); 
     }
-  };
+  } catch (error) {
+    console.error('Failed to fetch article details:', error);
+    toast.error('Failed to load article details');
+    setStudentProgress([]);
+  }
+};
 
   const exportAnalytics = () => {
     const exportData = {
@@ -160,7 +205,7 @@ const Analytics = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <StatCard
             title="Total Articles"
-            value={analytics?.totalArticles || 0}
+            value={analytics?.data?.summary?.totalArticles || 0}
             icon={<FiBookOpen />}
             color="indigo"
             trend="up"
@@ -168,7 +213,7 @@ const Analytics = () => {
           />
           <StatCard
             title="Active Students"
-            value={analytics?.activeStudents || 0}
+            value={analytics?.data?.summary?.totalStudents || 0}
             icon={<FiUsers />}
             color="green"
             trend="up"
@@ -176,7 +221,7 @@ const Analytics = () => {
           />
           <StatCard
             title="Total Views"
-            value={analytics?.totalViews || 0}
+            value={analytics?.data?.summary.totalViews || 0}
             icon={<FiEye />}
             color="blue"
             trend="up"
@@ -184,7 +229,7 @@ const Analytics = () => {
           />
           <StatCard
             title="Avg. Reading Time"
-            value={`${Math.floor((analytics?.avgReadingTime || 0) / 60)}m ${Math.floor((analytics?.avgReadingTime || 0) % 60)}s`}
+            value={`${avgReadingTime} min`}
             icon={<FiClock />}
             color="purple"
             trend="down"
@@ -192,20 +237,20 @@ const Analytics = () => {
           />
         </div>
 
-        {/* Main Charts Row */}
+       
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-          {/* Articles vs Views */}
+        
           <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-700">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-lg font-semibold text-white">Articles Performance</h2>
               <FiTrendingUp className="text-gray-400" />
             </div>
-            {analytics?.articleViews && analytics.articleViews.length > 0 ? (
+            {analytics?.data?.articleAnalytics && analytics?.data?.articleAnalytics.length > 0 ? (
               <div className="text-white">
                 <BarChart
-                  data={analytics.articleViews.slice(0, 10)}
+                  data={analytics?.data?.articleAnalytics.slice(0, 10)}
                   xKey="title"
-                  yKey="views"
+                  yKey="totalViews"
                   height={300}
                 />
               </div>
@@ -216,7 +261,7 @@ const Analytics = () => {
             )}
           </div>
 
-          {/* Category Distribution */}
+          
           <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-700">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-lg font-semibold text-white">Category Distribution</h2>
@@ -248,7 +293,11 @@ const Analytics = () => {
           {dailyData.length > 0 ? (
             <div className="text-white">
               <LineChart
-                data={dailyData}
+                data={dailyData.map(day => ({
+        date: new Date(day._id.date).toLocaleDateString(),
+        views: day.views,
+        students: day.uniqueStudents.length
+      }))}
                 xKey="date"
                 yKey="views"
                 height={300}
@@ -261,32 +310,36 @@ const Analytics = () => {
           )}
         </div>
 
-        {/* Article Selector and Detailed Stats */}
+        
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-          {/* Article List */}
+          
           <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-700">
             <h2 className="text-lg font-semibold text-white mb-4">Select Article</h2>
             <div className="space-y-2 max-h-96 overflow-y-auto">
-              {analytics?.articles?.map(article => (
-                <button
-                  key={article._id}
-                  onClick={() => setSelectedArticle(article._id)}
-                  className={`w-full text-left p-3 rounded-lg transition-colors ${
-                    selectedArticle === article._id
-                      ? 'bg-indigo-500/20 text-indigo-400 border border-indigo-500/30'
-                      : 'hover:bg-gray-700/50 text-gray-300'
-                  }`}
-                >
-                  <p className="font-medium truncate">{article.title}</p>
-                  <p className="text-sm text-gray-400">
-                    {article.views} views • {article.students} students
-                  </p>
-                </button>
-              ))}
+          {analytics?.data?.articleAnalytics?.map(article => {
+  return (
+    <button
+      key={article._id} 
+      onClick={(e) => {
+            e.preventDefault(); 
+            setSelectedArticle(article._id);
+          }}
+      className={`w-full text-left p-3 rounded-lg transition-colors ${
+        selectedArticle === (article._id || article.id)
+          ? 'bg-indigo-500/20 text-indigo-400 border border-indigo-500/30'
+          : 'hover:bg-gray-700/50 text-gray-300'
+      }`}
+    >
+      <p className="font-medium truncate">{article.title}</p>      <p className="text-sm text-gray-400">
+        {article.views || article.totalViews} views • {article.students || article.uniqueStudents?.length || 0} students
+      </p>
+    </button>
+  );
+})}
             </div>
           </div>
 
-          {/* Article Stats */}
+          
           <div className="lg:col-span-2 bg-gray-800/50 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-700">
             {selectedArticle ? (
               <>
@@ -303,26 +356,28 @@ const Analytics = () => {
                   <div className="p-4 bg-gray-700/50 rounded-lg border border-gray-600">
                     <p className="text-sm text-gray-400">Unique Students</p>
                     <p className="text-2xl font-bold text-white">
-                      {articleStats?.uniqueStudents || 0}
+                      {Array.isArray(articleStats?.uniqueStudents) 
+      ? articleStats.uniqueStudents.length 
+      : articleStats?.uniqueStudents || 0}
                     </p>
                   </div>
                   <div className="p-4 bg-gray-700/50 rounded-lg border border-gray-600">
                     <p className="text-sm text-gray-400">Avg. Reading Time</p>
                     <p className="text-2xl font-bold text-white">
-                      {Math.floor((articleStats?.avgReadingTime || 0) / 60)}m
+                     {calculateAvgReadingTime()}m
                     </p>
                   </div>
                   <div className="p-4 bg-gray-700/50 rounded-lg border border-gray-600">
                     <p className="text-sm text-gray-400">Completion Rate</p>
                     <p className="text-2xl font-bold text-white">
-                      {articleStats?.completionRate || 0}%
+                       {calculateCompletionRate()}%
                     </p>
                   </div>
                 </div>
 
                 {/* Student Progress Table */}
-                <h3 className="font-semibold text-white mb-3">Student Progress</h3>
-                <div className="overflow-x-auto">
+                {/* <h3 className="font-semibold text-white mb-3">Student Progress</h3> */}
+                {/* <div className="overflow-x-auto">
                   <table className="min-w-full">
                     <thead>
                       <tr className="border-b border-gray-700">
@@ -356,7 +411,7 @@ const Analytics = () => {
                       ))}
                     </tbody>
                   </table>
-                </div>
+                </div> */}
               </>
             ) : (
               <div className="h-64 flex items-center justify-center text-gray-400">
@@ -366,23 +421,26 @@ const Analytics = () => {
           </div>
         </div>
 
-        {/* Top Categories */}
-        <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-700">
-          <h2 className="text-lg font-semibold text-white mb-4">Top Performing Categories</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {analytics?.topCategories?.map((cat, index) => (
-              <div key={cat.category} className="flex items-center gap-3 p-3 bg-gray-700/50 rounded-lg border border-gray-600">
-                <div className="w-8 h-8 bg-indigo-500/20 rounded-full flex items-center justify-center text-indigo-400 font-bold border border-indigo-500/30">
-                  {index + 1}
-                </div>
-                <div>
-                  <p className="font-medium text-white">{cat.category}</p>
-                  <p className="text-sm text-gray-400">{cat.count} articles • {cat.views} views</p>
-                </div>
-              </div>
-            ))}
+       <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-700">
+  <h2 className="text-lg font-semibold text-white mb-4">Top Performing Categories</h2>
+  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+    {analytics?.data?.topCategories
+      ?.sort((a, b) => b.totalViews - a.totalViews) // Sort by views descending
+      .map((cat, index) => (
+        <div key={cat._id} className="flex items-center gap-3 p-3 bg-gray-700/50 rounded-lg border border-gray-600">
+          <div className="w-8 h-8 bg-indigo-500/20 rounded-full flex items-center justify-center text-indigo-400 font-bold border border-indigo-500/30">
+            {index + 1}
+          </div>
+          <div>
+            <p className="font-medium text-white">{cat._id}</p>
+            <p className="text-sm text-gray-400">
+              {cat.count} {cat.count === 1 ? 'article' : 'articles'} • {cat.totalViews} {cat.totalViews === 1 ? 'view' : 'views'}
+            </p>
           </div>
         </div>
+      ))}
+  </div>
+</div>
       </div>
     </div>
   );

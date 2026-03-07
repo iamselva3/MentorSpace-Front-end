@@ -94,6 +94,16 @@ const StudentDashboard = () => {
     }
   };
 
+  const colors = [
+  'rgba(79, 70, 229, 0.8)',   // indigo
+  'rgba(16, 185, 129, 0.8)',  // green
+  'rgba(245, 158, 11, 0.8)',  // amber
+  'rgba(239, 68, 68, 0.8)',   // red
+  'rgba(139, 92, 246, 0.8)',  // purple
+  'rgba(236, 72, 153, 0.8)',  // pink
+  'rgba(6, 182, 212, 0.8)',   // cyan
+];
+
   if (loading) return <Loader />;
 
   return (
@@ -218,48 +228,63 @@ const StudentDashboard = () => {
         </div>
 
         {/* Charts and Recent Articles Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8 items-start">
           {/* Reading Time Chart - Takes 2 columns */}
           <div className="lg:col-span-2 bg-gray-800/50 backdrop-blur-sm rounded-2xl shadow-lg p-6 border border-gray-700">
-            <div className="flex items-center justify-between mb-6">
-              <div>
-                <h3 className="text-lg font-semibold text-white">Reading Time by Category</h3>
-                <p className="text-sm text-gray-400 mt-1">Distribution of your reading time across topics</p>
-              </div>
-              <div className="p-2 bg-indigo-500/20 rounded-lg border border-indigo-500/30">
-                <FiTarget className="text-indigo-400 text-xl" />
-              </div>
-            </div>
-            
-            {categoryTime.length > 0 ? (
-              <div className="h-72 text-white">
-                <PieChart 
-                  data={categoryTime}
-                  nameKey="category"
-                  valueKey="minutes"
-                />
-              </div>
-            ) : (
-              <div className="h-72 flex flex-col items-center justify-center text-gray-400 bg-gray-900/50 rounded-xl border border-gray-700">
-                <FiClock className="text-5xl mb-3 text-gray-600" />
-                <p className="font-medium">No reading data available yet</p>
-                <p className="text-sm mt-1">Start reading articles to see your progress!</p>
-              </div>
-            )}
+  <div className="flex items-center justify-between mb-6">
+    <div>
+      <h3 className="text-lg font-semibold text-white">Reading Time by Category</h3>
+      <p className="text-sm text-gray-400 mt-1">Distribution of your reading time across topics</p>
+    </div>
+    <div className="p-2 bg-indigo-500/20 rounded-lg border border-indigo-500/30">
+      <FiTarget className="text-indigo-400 text-xl" />
+    </div>
+  </div>
 
-            {/* Category Legend with Times */}
-            {categoryTime.length > 0 && (
-              <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 gap-3">
-                {categoryTime.map((cat, i) => (
-                  <div key={i} className="flex items-center gap-2 p-2 bg-gray-900/50 rounded-lg border border-gray-700">
-                    <div className={`w-3 h-3 rounded-full bg-${['indigo', 'green', 'amber', 'red', 'purple', 'pink'][i % 6]}-500`}></div>
-                    <span className="text-sm font-medium text-gray-300 flex-1">{cat.category}</span>
-                    <span className="text-xs text-gray-500">{cat.formatted}</span>
-                  </div>
-                ))}
-              </div>
-            )}
+  {categoryTime.length > 0 ? (
+    <div className="flex flex-col lg:flex-row gap-6 items-center lg:items-start">
+
+      {/* Pie Chart */}
+      <div className="w-full lg:w-1/2 h-72 text-white flex items-center justify-center">
+        <PieChart
+          data={categoryTime}
+          nameKey="category"
+          valueKey="minutes"
+        />
+      </div>
+
+      {/* Category Legend with Times */}
+      <div className="w-full lg:w-1/2 grid grid-cols-1 sm:grid-cols-2 gap-3">
+        {categoryTime.map((cat, i) => (
+          <div
+            key={i}
+            className="flex items-center gap-2 p-3 bg-gray-900/50 rounded-lg border border-gray-700"
+          >
+            <div
+  className="w-3 h-3 rounded-full"
+  style={{ backgroundColor: colors[i % colors.length] }}
+></div>
+
+            <span className="text-sm font-medium text-gray-300 flex-1">
+              {cat.category}
+            </span>
+
+            <span className="text-xs text-gray-500">
+              {cat.formatted}
+            </span>
           </div>
+        ))}
+      </div>
+
+    </div>
+  ) : (
+    <div className="h-72 flex flex-col items-center justify-center text-gray-400 bg-gray-900/50 rounded-xl border border-gray-700">
+      <FiClock className="text-5xl mb-3 text-gray-600" />
+      <p className="font-medium">No reading data available yet</p>
+      <p className="text-sm mt-1">Start reading articles to see your progress!</p>
+    </div>
+  )}
+</div>
 
           {/* Recent Articles - Takes 1 column */}
           <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl shadow-lg p-6 border border-gray-700">
@@ -275,22 +300,11 @@ const StudentDashboard = () => {
             
             <RecentArticles articles={recentArticles} />
             
-            {/* Reading Streak Mini Card */}
-            <div className="mt-6 p-4 bg-gradient-to-r from-indigo-500/10 to-purple-500/10 rounded-xl border border-indigo-500/30">
-              <div className="flex items-center gap-3">
-                <div className="p-2 bg-gray-800 rounded-lg border border-gray-700">
-                  <FiAward className="text-indigo-400 text-xl" />
-                </div>
-                <div>
-                  <p className="text-sm text-gray-400">Current Streak</p>
-                  <p className="text-xl font-bold text-white">5 days 🔥</p>
-                </div>
-              </div>
-            </div>
+           
           </div>
         </div>
 
-        {/* Recent Highlights Section */}
+        
         <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl shadow-lg p-6 border border-gray-700">
           <div className="flex items-center justify-between mb-6">
             <div>

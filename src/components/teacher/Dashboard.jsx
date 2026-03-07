@@ -11,6 +11,14 @@ const TeacherDashboard = () => {
   const [trends, setTrends] = useState([]);
   const [loading, setLoading] = useState(true);
 
+ 
+  const transformedTrends = trends.map(item => ({
+  date: item._id.date,
+  views: item.views,
+  duration: item.totalDuration,
+  students: item.uniqueStudents.length
+}));
+
   useEffect(() => {
     fetchDashboardData();
   }, []);
@@ -21,11 +29,16 @@ const TeacherDashboard = () => {
         getTeacherAnalytics(),
         getDailyEngagement(30)
       ]);
+
+      
       
       const analyticsData = analyticsResponse.data || analyticsResponse;
+      const trendsResponse = trendsData?.data?.dailyEngagement || trendsData;
+
+
       
       setAnalytics(analyticsData);
-      setTrends(trendsData);
+      setTrends(trendsResponse);
     } catch (error) {
       console.error('Failed to fetch dashboard data:', error);
     } finally {
@@ -36,13 +49,34 @@ const TeacherDashboard = () => {
   if (loading) return <Loader />;
 
   const summary = analytics?.summary || {};
+  const articleAnalytics = analytics?.articleAnalytics || [];
   const categoryStats = analytics?.categoryStats || [];
   const topCategories = analytics?.topCategories || [];
 
+
+  const calculateAvgReadingTime = () => {
+  if (!articleAnalytics || articleAnalytics.length === 0) return 0;
+  
+  const totalDuration = articleAnalytics.reduce((sum, article) => {
+    return sum + (article.totalDuration || 0);
+  }, 0);
+  
+  const totalArticles = articleAnalytics.length;
+  const avgMinutes = Math.round((totalDuration / totalArticles) / 60); 
+  
+  return avgMinutes || 0;
+};
+
+const avgReadingTime = calculateAvgReadingTime();
+
+
+
   const articleViewsData = analytics?.articleAnalytics?.map(article => ({
     title: article.title || 'Untitled',
-    views: article.views || 0
+    views: article.totalViews || 0
   })) || [];
+
+
 
   const categoryData = categoryStats.map(cat => ({
     category: cat._id || 'Unknown',
@@ -147,13 +181,13 @@ const TeacherDashboard = () => {
               </span>
             </div>
             <h3 className="text-gray-400 text-sm mb-1">Avg. Reading Time</h3>
-            <p className="text-3xl font-bold text-white">{`${summary.avgReadingTime || 0} min`}</p>
+             <p className="text-3xl font-bold text-white">{`${avgReadingTime} min`}</p>
           </div>
         </div>
 
-        {/* Charts Row 1 - 2 columns */}
+        
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-          {/* Articles vs Views Chart */}
+         
           <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl shadow-lg p-6 border border-gray-700">
             <h3 className="text-lg font-semibold text-white mb-4">Articles vs Views</h3>
             {articleViewsData.length > 0 ? (
@@ -172,7 +206,7 @@ const TeacherDashboard = () => {
             )}
           </div>
 
-          {/* Category Distribution Chart */}
+          
           <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl shadow-lg p-6 border border-gray-700">
             <h3 className="text-lg font-semibold text-white mb-4">Category Distribution</h3>
             {categoryData.length > 0 ? (
@@ -192,14 +226,14 @@ const TeacherDashboard = () => {
           </div>
         </div>
 
-        {/* Charts Row 2 - Full width */}
+     
         <div className="mb-8">
           <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl shadow-lg p-6 border border-gray-700">
             <h3 className="text-lg font-semibold text-white mb-4">Daily Engagement Trends</h3>
             {trends.length > 0 ? (
               <div className="text-white">
                 <LineChart 
-                  data={trends}
+                  data={transformedTrends}
                   xKey="date"
                   yKey="views"
                   height={300}
@@ -228,7 +262,7 @@ const TeacherDashboard = () => {
                     ${index === 2 ? 'bg-orange-500/10 border-orange-500/30' : ''}
                   `}
                 >
-                  {/* Rank Badge */}
+                  
                   <div className={`
                     w-10 h-10 rounded-full flex items-center justify-center font-bold mr-4
                     ${index === 0 ? 'bg-yellow-500 text-white' : ''}
@@ -238,7 +272,7 @@ const TeacherDashboard = () => {
                     #{index + 1}
                   </div>
                   
-                  {/* Category Info */}
+                  
                   <div className="flex-1">
                     <h4 className="font-semibold text-white">{cat._id || 'Unknown'}</h4>
                     <div className="flex items-center gap-2 mt-1">
@@ -274,7 +308,7 @@ const TeacherDashboard = () => {
           )}
         </div>
 
-        {/* Quick Stats Footer */}
+        
         <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
           <div className="bg-indigo-500/10 rounded-lg p-4 text-center border border-indigo-500/30">
             <p className="text-2xl font-bold text-indigo-400">{summary.totalArticles || 0}</p>

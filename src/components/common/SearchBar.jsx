@@ -23,7 +23,6 @@ const SearchBar = ({
   }, [value]);
 
   useEffect(() => {
-    // Handle click outside to close suggestions
     const handleClickOutside = (event) => {
       if (searchRef.current && !searchRef.current.contains(event.target)) {
         setIsFocused(false);
@@ -36,7 +35,6 @@ const SearchBar = ({
   }, []);
 
   useEffect(() => {
-    // Debounce search input
     if (debounceTimer.current) {
       clearTimeout(debounceTimer.current);
     }
@@ -109,13 +107,13 @@ const SearchBar = ({
           onKeyDown={handleKeyDown}
           placeholder={placeholder}
           autoFocus={autoFocus}
-          className="w-full pl-10 pr-10 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 transition-colors"
+          className="w-full pl-10 pr-10 py-2.5 bg-gray-800/50 border border-gray-700 text-white rounded-lg focus:outline-none focus:border-indigo-500 transition-colors placeholder-gray-400"
         />
         
         {localValue && (
           <button
             onClick={handleClear}
-            className="absolute right-3 text-gray-400 hover:text-gray-600 transition-colors"
+            className="absolute right-3 text-gray-400 hover:text-gray-300 transition-colors"
             aria-label="Clear search"
           >
             <FiX className="text-lg" />
@@ -125,11 +123,11 @@ const SearchBar = ({
 
       {/* Search Suggestions Dropdown */}
       {(isFocused || showRecent) && (showSuggestions || recentSearches.length > 0) && (
-        <div className="absolute z-50 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden">
+        <div className="absolute z-50 w-full mt-1 bg-gray-800 border border-gray-700 rounded-lg shadow-xl overflow-hidden">
           {/* Recent Searches */}
           {recentSearches.length > 0 && showRecent && (
             <div className="p-2">
-              <div className="flex items-center gap-2 px-3 py-2 text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <div className="flex items-center gap-2 px-3 py-2 text-xs font-medium text-gray-400 uppercase tracking-wider">
                 <FiClock className="text-sm" />
                 Recent Searches
               </div>
@@ -137,10 +135,10 @@ const SearchBar = ({
                 <button
                   key={index}
                   onClick={() => handleSuggestionClick(search)}
-                  className="w-full text-left px-3 py-2 hover:bg-gray-50 rounded-lg transition-colors flex items-center gap-2"
+                  className="w-full text-left px-3 py-2 hover:bg-gray-700/50 rounded-lg transition-colors flex items-center gap-2"
                 >
-                  <FiClock className="text-gray-400 text-sm" />
-                  <span className="text-sm text-gray-700">{search}</span>
+                  <FiClock className="text-gray-500 text-sm" />
+                  <span className="text-sm text-gray-300">{search}</span>
                 </button>
               ))}
             </div>
@@ -148,8 +146,8 @@ const SearchBar = ({
 
           {/* Popular Suggestions */}
           {suggestions.length > 0 && showSuggestions && (
-            <div className="p-2 border-t border-gray-100">
-              <div className="flex items-center gap-2 px-3 py-2 text-xs font-medium text-gray-500 uppercase tracking-wider">
+            <div className="p-2 border-t border-gray-700">
+              <div className="flex items-center gap-2 px-3 py-2 text-xs font-medium text-gray-400 uppercase tracking-wider">
                 <FiTrendingUp className="text-sm" />
                 Popular Suggestions
               </div>
@@ -157,9 +155,9 @@ const SearchBar = ({
                 <button
                   key={index}
                   onClick={() => handleSuggestionClick(suggestion)}
-                  className="w-full text-left px-3 py-2 hover:bg-gray-50 rounded-lg transition-colors"
+                  className="w-full text-left px-3 py-2 hover:bg-gray-700/50 rounded-lg transition-colors"
                 >
-                  <span className="text-sm text-gray-700">{suggestion}</span>
+                  <span className="text-sm text-gray-300">{suggestion}</span>
                 </button>
               ))}
             </div>
@@ -167,7 +165,7 @@ const SearchBar = ({
 
           {/* No Results */}
           {suggestions.length === 0 && recentSearches.length === 0 && (
-            <div className="px-4 py-3 text-sm text-gray-500">
+            <div className="px-4 py-3 text-sm text-gray-400">
               No suggestions available
             </div>
           )}
@@ -190,7 +188,6 @@ export const ArticleSearchBar = ({ onSearch, totalArticles }) => {
 
   const handleSearch = (query) => {
     if (query && query.length > 0) {
-      // Add to recent searches
       setRecentSearches(prev => {
         const updated = [query, ...prev.filter(s => s !== query)].slice(0, 5);
         return updated;
@@ -209,7 +206,7 @@ export const ArticleSearchBar = ({ onSearch, totalArticles }) => {
         placeholder="Search by title, category, or keywords..."
       />
       {totalArticles !== undefined && (
-        <div className="text-sm text-gray-500">
+        <div className="text-sm text-gray-400">
           {totalArticles} articles available
         </div>
       )}
@@ -225,7 +222,7 @@ export const CompactSearchBar = ({ onSearch }) => {
     return (
       <button
         onClick={() => setIsExpanded(true)}
-        className="p-2 text-gray-600 hover:text-indigo-600 transition-colors"
+        className="p-2 text-gray-400 hover:text-indigo-400 transition-colors"
         aria-label="Search"
       >
         <FiSearch className="text-xl" />
@@ -234,7 +231,7 @@ export const CompactSearchBar = ({ onSearch }) => {
   }
 
   return (
-    <div className="absolute inset-x-0 top-0 bg-white p-4 shadow-lg z-50">
+    <div className="absolute inset-x-0 top-0 bg-gray-900/95 backdrop-blur-sm p-4 shadow-lg z-50 border-b border-gray-800">
       <SearchBar
         autoFocus
         onSearch={(query) => {
@@ -245,7 +242,7 @@ export const CompactSearchBar = ({ onSearch }) => {
       />
       <button
         onClick={() => setIsExpanded(false)}
-        className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
+        className="absolute top-4 right-4 text-gray-400 hover:text-gray-300 transition-colors"
       >
         <FiX className="text-xl" />
       </button>
