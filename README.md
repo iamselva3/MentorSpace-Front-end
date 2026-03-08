@@ -143,3 +143,6 @@ Used for direct media uploads and scalable storage.
 - Cohere AI API
 
 Used to power the AI learning assistant.
+
+# Env setup 
+VITE_API_URL=your_backend
