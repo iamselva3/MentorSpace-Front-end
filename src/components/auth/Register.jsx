@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { toast } from 'react-hot-toast';
-import { FiMail, FiLock, FiUser, FiUserPlus, FiBook } from 'react-icons/fi';
+import { FiMail, FiLock, FiUser, FiUserPlus, FiBook, FiAlertCircle } from 'react-icons/fi';
 
 const Register = () => {
   const navigate = useNavigate();
   const { register } = useAuth();
   const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -21,6 +22,8 @@ const Register = () => {
       ...formData,
       [e.target.name]: e.target.value
     });
+   
+    if (errorMessage) setErrorMessage('');
   };
 
   const handleSubmit = async (e) => {
@@ -32,6 +35,7 @@ const Register = () => {
     }
 
     setLoading(true);
+    setErrorMessage('');
     
     try {
       const { confirmPassword, ...registerData } = formData;
@@ -44,7 +48,9 @@ const Register = () => {
         navigate('/student/dashboard');
       }
     } catch (error) {
-      toast.error(error.response?.data?.message || 'Registration failed');
+      const message = error.response?.data?.message || 'Registration failed';
+      setErrorMessage(message);
+      toast.error(message);
     } finally {
       setLoading(false);
     }
@@ -79,13 +85,24 @@ const Register = () => {
       <div className="relative bg-gray-800/90 backdrop-blur-sm rounded-2xl shadow-xl p-8 w-full max-w-md border border-gray-700 z-10">
         <div className="text-center mb-8">
           <div className="flex justify-center mb-4">
-            <div className="w-20 h-20 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-2xl flex items-center justify-center shadow-lg shadow-indigo-500/20">
+            {/* <div className="w-20 h-20 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-2xl flex items-center justify-center shadow-lg shadow-indigo-500/20">
               <FiBook className="text-white text-4xl" />
-            </div>
+            </div> */}
           </div>
           <h2 className="text-3xl font-bold text-white">Create Account</h2>
           <p className="text-gray-400 mt-2">Join our learning platform</p>
         </div>
+
+        
+        {errorMessage && (
+          <div className="mb-6 p-4 bg-red-500/10 border border-red-500/30 rounded-lg flex items-start gap-3 animate-fadeIn">
+            <FiAlertCircle className="text-red-400 text-xl flex-shrink-0 mt-0.5" />
+            <div>
+              <p className="text-red-400 text-sm font-medium">Registration Failed</p>
+              <p className="text-red-300 text-sm mt-1">{errorMessage}</p>
+            </div>
+          </div>
+        )}
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-2">
@@ -97,7 +114,9 @@ const Register = () => {
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-                className="w-full pl-10 pr-4 py-2 bg-gray-700/50 border border-gray-600 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent placeholder-gray-400"
+                className={`w-full pl-10 pr-4 py-2 bg-gray-700/50 border ${
+                  errorMessage ? 'border-red-500/50 focus:ring-red-500' : 'border-gray-600 focus:ring-indigo-500'
+                } text-white rounded-lg focus:outline-none focus:ring-2 focus:border-transparent placeholder-gray-400`}
                 placeholder="Enter your full name"
                 required
               />
@@ -113,7 +132,9 @@ const Register = () => {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full pl-10 pr-4 py-2 bg-gray-700/50 border border-gray-600 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent placeholder-gray-400"
+                className={`w-full pl-10 pr-4 py-2 bg-gray-700/50 border ${
+                  errorMessage ? 'border-red-500/50 focus:ring-red-500' : 'border-gray-600 focus:ring-indigo-500'
+                } text-white rounded-lg focus:outline-none focus:ring-2 focus:border-transparent placeholder-gray-400`}
                 placeholder="Enter your email"
                 required
               />
@@ -129,7 +150,9 @@ const Register = () => {
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
-                className="w-full pl-10 pr-4 py-2 bg-gray-700/50 border border-gray-600 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent placeholder-gray-400"
+                className={`w-full pl-10 pr-4 py-2 bg-gray-700/50 border ${
+                  errorMessage ? 'border-red-500/50 focus:ring-red-500' : 'border-gray-600 focus:ring-indigo-500'
+                } text-white rounded-lg focus:outline-none focus:ring-2 focus:border-transparent placeholder-gray-400`}
                 placeholder="Create a password"
                 required
                 minLength="6"
@@ -146,7 +169,9 @@ const Register = () => {
                 name="confirmPassword"
                 value={formData.confirmPassword}
                 onChange={handleChange}
-                className="w-full pl-10 pr-4 py-2 bg-gray-700/50 border border-gray-600 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent placeholder-gray-400"
+                className={`w-full pl-10 pr-4 py-2 bg-gray-700/50 border ${
+                  errorMessage ? 'border-red-500/50 focus:ring-red-500' : 'border-gray-600 focus:ring-indigo-500'
+                } text-white rounded-lg focus:outline-none focus:ring-2 focus:border-transparent placeholder-gray-400`}
                 placeholder="Confirm your password"
                 required
               />
@@ -161,7 +186,9 @@ const Register = () => {
                 name="role"
                 value={formData.role}
                 onChange={handleChange}
-                className="w-full pl-10 pr-4 py-2 bg-gray-700/50 border border-gray-600 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 appearance-none"
+                className={`w-full pl-10 pr-4 py-2 bg-gray-700/50 border ${
+                  errorMessage ? 'border-red-500/50 focus:ring-red-500' : 'border-gray-600 focus:ring-indigo-500'
+                } text-white rounded-lg focus:outline-none focus:ring-2 focus:border-transparent appearance-none`}
               >
                 <option value="student" className="bg-gray-800">Student</option>
                 <option value="teacher" className="bg-gray-800">Teacher</option>

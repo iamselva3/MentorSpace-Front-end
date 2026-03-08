@@ -9,6 +9,7 @@ import TeacherPortal from './pages/TeacherPortal';
 import StudentPortal from './pages/StudentPortal';
 import Home from './pages/Home';
 import './index.css';
+import AIAssistantButton from './components/common/Aiassitant';
 
 const AppRoutes = () => {
     const { isAuthenticated, isTeacher } = useAuth();
@@ -36,6 +37,7 @@ const AppRoutes = () => {
                     </PrivateRoute>
                 } />
             </Routes>
+                <AIAssistantButton />
         </>
     );
 };

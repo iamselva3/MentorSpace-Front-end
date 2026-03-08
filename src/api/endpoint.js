@@ -66,7 +66,7 @@ export const createArticle = async (articleData) => {
 
                 contentBlocksWithoutFiles.push({
                     ...block,
-                    content: '' 
+                    content: ''
                 });
             } else {
                 contentBlocksWithoutFiles.push(block);
@@ -94,7 +94,7 @@ export const createArticle = async (articleData) => {
 };
 
 export const updateArticle = async (id, articleData) => {
-    
+
     const hasFiles = articleData.contentBlocks?.some(
         block => block.content && block.content instanceof File
     );
@@ -107,7 +107,7 @@ export const updateArticle = async (id, articleData) => {
         formData.append('description', articleData.description || '');
         formData.append('coverImage', articleData.coverImage || '');
 
-        
+
         const tagsToSend = Array.isArray(articleData.tags) ? articleData.tags : [];
 
         formData.append('tags', JSON.stringify(tagsToSend));
@@ -148,7 +148,7 @@ export const updateArticle = async (id, articleData) => {
 
         });
 
-        
+
         for (let pair of formData.entries()) {
             console.log(pair[0], pair[1] instanceof File ? `File: ${pair[1].name}` : pair[1]);
         }
@@ -159,7 +159,7 @@ export const updateArticle = async (id, articleData) => {
             }
         });
     } else {
-       
+
         const jsonData = {
             title: articleData.title || '',
             category: articleData.category || '',
@@ -169,7 +169,7 @@ export const updateArticle = async (id, articleData) => {
             contentBlocks: articleData.contentBlocks || []
         };
 
-       
+
 
         return Api.patch(`/api/articles/${id}`, jsonData, {
             headers: {
@@ -353,5 +353,10 @@ export const uploadToS3 = async (presignedUrl, file) => {
 
 export const deleteFile = async (fileKey) => {
     const response = await Api.delete(`/api/upload/${fileKey}`);
+    return response.data;
+};
+
+export const askAI = async (data) => {
+    const response = await Api.post('/api/ai/ask', data);
     return response.data;
 };

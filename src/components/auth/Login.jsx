@@ -82,9 +82,9 @@ const Login = () => {
       <div className="relative bg-gray-800/90 backdrop-blur-sm rounded-2xl shadow-xl p-8 w-full max-w-md border border-gray-700 z-10">
         <div className="text-center mb-8">
           <div className="flex justify-center mb-4">
-            <div className="w-20 h-20 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-2xl flex items-center justify-center shadow-lg shadow-indigo-500/20">
+            {/* <div className="w-20 h-20 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-2xl flex items-center justify-center shadow-lg shadow-indigo-500/20">
               <FiBook className="text-white text-4xl" />
-            </div>
+            </div> */}
           </div>
           <h2 className="text-3xl font-bold text-white">Welcome Back!</h2>
           <p className="text-gray-400 mt-2">Login to access your account</p>

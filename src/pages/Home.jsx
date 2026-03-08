@@ -261,7 +261,7 @@ const Home = () => {
                 number: '01',
                 title: 'Register',
                 description: 'Sign up as a teacher or student in seconds',
-                icon: '👋',
+                image: 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png',
                 gradient: 'from-indigo-500 to-indigo-600',
                 bgLight: 'bg-indigo-500/10',
                 borderColor: 'border-indigo-500/30',
@@ -271,7 +271,7 @@ const Home = () => {
                 number: '02',
                 title: 'Create/Access Content',
                 description: 'Teachers create articles, students access them instantly',
-                icon: '📚',
+                image: 'https://cdn-icons-png.flaticon.com/512/2436/2436874.png',
                 gradient: 'from-green-500 to-green-600',
                 bgLight: 'bg-green-500/10',
                 borderColor: 'border-green-500/30',
@@ -281,7 +281,7 @@ const Home = () => {
                 number: '03',
                 title: 'Track Progress',
                 description: 'Monitor engagement and learning progress in real-time',
-                icon: '📊',
+                image: 'https://cdn-icons-png.flaticon.com/512/2784/2784445.png',
                 gradient: 'from-purple-500 to-purple-600',
                 bgLight: 'bg-purple-500/10',
                 borderColor: 'border-purple-500/30',
@@ -297,7 +297,11 @@ const Home = () => {
                   
                   
                   <div className={`w-20 h-20 ${step.bgLight} rounded-2xl flex items-center justify-center text-4xl mb-6 group-hover:rotate-3 transition-transform border ${step.borderColor}`}>
-                    {step.icon}
+                     <img
+    src={step.image}
+    alt={step.title}
+    className="w-10 h-10 object-contain"
+  />
                   </div>
                   
                   <h3 className="text-2xl font-bold mb-3 text-white">{step.title}</h3>
@@ -331,7 +335,15 @@ const Home = () => {
                 <div className="flex-1 relative">
                   <div className="aspect-video bg-gray-800 rounded-xl overflow-hidden shadow-xl border border-gray-700">
                     <div className="w-full h-full bg-gradient-to-br from-gray-700 to-gray-800 flex items-center justify-center">
-                      <FiPlay className="text-gray-500 text-5xl" />
+                      {/* <FiPlay className="text-gray-500 text-5xl" /> */}
+                      <iframe
+  className="w-full h-full"
+  src="https://www.youtube.com/embed/8s4wR1Uvngs"
+  title="MentorSpace Demo"
+  frameBorder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+/>
                     </div>
                   </div>
                 </div>
