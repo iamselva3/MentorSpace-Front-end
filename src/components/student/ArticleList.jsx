@@ -25,7 +25,7 @@ const StudentArticles = () => {
       const response = await getArticles();
       console.log('Full API Response:', response);
       
-      // CORRECT EXTRACTION: response.data.articles
+      
       const articlesData = response.data?.articles || [];
       
       console.log('Extracted articles:', articlesData);
@@ -63,7 +63,7 @@ const StudentArticles = () => {
     setFilteredArticles(filtered);
   };
 
-  // Get unique categories
+ 
   const categories = Array.isArray(articles) 
     ? [...new Set(articles.map(a => a.category).filter(Boolean))]
     : [];
