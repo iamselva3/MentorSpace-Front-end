@@ -1,16 +1,145 @@
-# React + Vite
+# MentorSpace – Analytics-Based Learning Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+MentorSpace is a full-stack MERN learning platform where teachers can create interactive educational content and track student engagement through powerful analytics dashboards.
 
-Currently, two official plugins are available:
+The platform supports rich media articles, student reading analytics, highlighting features, and an AI learning assistant to enhance the educational experience.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Built with React, Node.js, Express, MongoDB, AWS S3, and Cohere AI.
 
-## React Compiler
+ 🚀 Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+👨‍🏫 Teacher Portal
 
-## Expanding the ESLint configuration
+🔐 Authentication
+- Secure JWT-based authentication
+- Role-based access control (Teacher / Student)
+- Password hashing using bcrypt
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+ 📝 Article Management
+Teachers can:
+- Create articles with rich content blocks
+- Edit and delete articles
+- Organize articles by category
+- Upload media directly to AWS S3
+
+ 🧩 Content Blocks
+Articles support multiple block types:
+- Text
+- Images
+- Videos
+- 3D Objects
+
+This enables interactive learning content instead of simple text articles.
+
+📊 Analytics Dashboard
+
+Teachers can monitor student engagement using interactive charts powered by Chart.js.
+
+Available analytics:
+
+- 📊 Bar Chart – Articles vs Views
+- 🥧 Pie Chart – Category distribution
+- 📈 Line Chart – Daily engagement trends
+
+Key metrics include:
+
+- Total articles created
+- Total student views
+- Most popular categories
+- Student reading behavior
+
+### 📈 Student Progress Tracking
+Teachers can track:
+- Which students read which articles
+- Time spent reading
+- Article engagement statistics
+
+---
+
+ 👨‍🎓 Student Portal
+
+🔐 Secure Access
+- Students log in using JWT authentication.
+
+🔎 Article Discovery
+Students can:
+- Browse available articles
+- Filter by category
+- Search using keywords
+
+📖 Rich Reading Experience
+Articles support:
+- Structured text
+- Embedded images
+- Videos
+- Interactive content blocks
+
+ 📊 Engagement Tracking
+The system automatically records:
+- Article views
+- Reading time
+- User engagement
+
+✏️ Highlight & Notes System
+Students can:
+- Highlight text inside articles
+- Add personal notes
+- Revisit highlights later
+
+### 📊 Personal Dashboard
+Each student has a dashboard showing:
+- Reading statistics
+- Category distribution
+- Learning activity summary
+
+
+
+## 🤖 AI Learning Assistant
+
+MentorSpace includes an AI-powered assistant using Cohere AI.
+
+Features:
+
+- 💬 Always-available help button
+- 📖 Context-aware responses based on the current page
+- 🧠 Article summaries and study tips
+- 🔄 Offline fallback responses when AI API is unavailable
+- 📝 Session-based chat history
+- 🪟 Minimize / maximize chat interface
+
+This helps students get instant guidance while learning.
+
+---
+
+# 🛠 Technology Stack
+
+## Frontend
+- React.js – UI library
+- React Router – Client-side routing
+- Tailwind CSS – Styling and responsive design
+- Chart.js – Analytics charts
+- React Icons – Icon library
+- Axios – API communication
+- React Hot Toast – Notifications
+- Date-fns – Date formatting utilities
+
+ Backend
+- Node.js – Runtime environment
+- Express.js – Backend framework
+- MongoDB – NoSQL database
+- Mongoose – MongoDB ODM
+- JWT – Authentication
+- Bcrypt – Password hashing
+
+ Media Storage
+- AWS S3
+- AWS SDK v3
+- Multer
+- Multer S3
+
+Used for direct media uploads and scalable storage.
+
+ AI Integration
+- Cohere AI API
+
+Used to power the AI learning assistant.
