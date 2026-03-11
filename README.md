@@ -146,3 +146,8 @@ Used to power the AI learning assistant.
 
 # Env setup 
 VITE_API_URL=your_backend
+
+
+Postman collection
+
+https://web.postman.co/workspace/My-Workspace~5609350e-0207-4afe-8a29-5f23ecbcc9c9/collection/42105020-5627f3b6-33b6-4485-9046-9bd243e9328c?action=share&source=copy-link&creator=42105020
